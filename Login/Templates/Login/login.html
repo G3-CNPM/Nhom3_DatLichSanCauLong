@@ -1,0 +1,70 @@
+<html>
+ <head>
+    {% load static %}
+  <title>
+   Login Page
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'Login/css/login.css' %}">
+   <!-- <link rel="stylesheet" href="/Login/static/css/login.css"> -->
+ </head>
+ <body>
+  <!-- <img class="background" src="{% static 'Login/pics/lg_bg_png.png' %}" alt="background"> -->
+   <div class="header">
+     <img src="{% static 'Login/pics/Logo_Bad.png' %}" alt="Logo">
+     <nav>
+       <a href="#">
+         Trang chủ
+        </a>
+        <a href="#">
+          Sản phẩm
+        </a>
+        <a href="#">
+          Đơn hàng
+        </a>
+        <a href="#">
+          Trang cá nhân
+        </a>
+      </nav>
+      <button class="login-btn">
+        ĐĂNG NHẬP
+      </button>
+    </div>
+    <div class="container">
+      <div class="login-form">
+        <h2>
+     Login
+    </h2>
+    <div class="input-group">
+     <i class="fas fa-user">
+    </i>
+    <input placeholder="Username" type="text"/>
+  </div>
+  <div class="input-group">
+    <i class="fas fa-lock">
+    </i>
+    <input placeholder="Password" type="password"/>
+  </div>
+  <div class="links">
+    <p>
+      Quên mật khẩu?
+      <a href="#">
+        Đổi mật khẩu
+      </a>
+    </p>
+    <p>
+      Chưa có tài khoản?
+      <a href="#">
+        Đăng kí ngay
+      </a>
+    </p>
+  </div>
+  <button class="submit-btn">
+    Submit
+  </button>
+</div>
+</div>
+ </body>
+ <!-- <img src="{% static 'Login/pics/lg_bg.jpeg' %}" alt=""> -->
+</html>
