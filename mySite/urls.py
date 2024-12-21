@@ -16,10 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from DLSCL import views as home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home.get_home),
+    path('', include('DLSCL.urls')),
     path('Login/', include('Login.urls'))
 ]
