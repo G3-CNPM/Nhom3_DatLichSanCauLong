@@ -1,12 +1,10 @@
-<!DOCTYPE html>
 <html lang="vi">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt Sân Cầu Lông</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -32,6 +30,11 @@
 
         .hidden {
             display: none;
+        }
+
+        .court-info {
+            color: black;
+            fron-weight: 1000;
         }
     </style>
     <script>
@@ -112,16 +115,6 @@
         }
 
         function showQRCode() {
-            const bank = "Vietcombank";
-            const cardNumber = "123456789"; 
-
-            // Tạo mã QR
-            const qr = new QRious({
-                element: document .getElementById('qr-code'),
-                value: `Thanh toán qua ngân hàng ${bank} với số tài khoản ${cardNumber}`,
-                size: 272
-            });
-
             document.getElementById('qr-code').style.display = 'block';
             alert("Vui lòng quét mã QR để hoàn tất thanh toán.");
         }
@@ -161,7 +154,7 @@
             <!-- Cột tìm kiếm -->
             <div class="col-md-3">
                 <div class="p-3 border bg-light">
-                    <h5 class="text-center">TÌM SÂN</h5>
+                    <h5 class="text-center court-info">TÌM SÂN</h5>
                     <label for="chonSan">Chọn sân:</label>
                     <select id="chonSan" class="form-select mb-3" onchange="filterCourts()">
                         <option value="" disabled selected>-- Chọn sân --</option>
@@ -290,9 +283,11 @@
 
                     <button class="btn btn-warning w-100" onclick="placeOrder()">Đặt lịch</button>
 
-                    <h5 class="text-center mt-4">THANH TOÁN TRỰC TUYẾN</h5>
+                    <h5 class="text-center mt-4 court-info">THANH TOÁN TRỰC TUYẾN</h5>
                     <button class="btn btn-success w-100" onclick="showQRCode()">Thanh toán</button>
-                    <canvas id="qr-code" class="mt-3" style="display: none;"></canvas>
+                    <div id="qr-code" class="mt-3 hidden">
+                        <img src="https://lh3.googleusercontent.com/gg/AJxt1KNFo02ThrmHqIsTpBBklagP-sDT8rnxIe6usqoK31iZswUIF3D1bHqTJTjvaGQn89iC7g-sIuwzZVaXx9sqOktY1XxQgSAVo2dbbcFYlBVa-MSfJq4btOk92T03PvohcaCVjsSX13OCs5aJxCpZtMj76Kp3A_zR5IEP6zPjZCGlrKLmYpy7gfQweG3xmdyO5YFEM3x86oCql-kdgiafp7pY1NnD6ulSoRkIZ5HHC7yzrIQeW85K87RHlO991ugrKghdHN_-ioK6waR_lK1gb8SruWoW1roGDKo=d" alt="QR code with black and white squares arranged in a specific pattern" class="w-64 h-64 mx-auto">
+                    </div>
                 </div>
             </div>
 
@@ -304,7 +299,7 @@
                         <div class="card">
                             <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 1">
                             <div class="card-body text-center">
-                                <h6 class="court-name">Sân 1</h6>
+                                <h6 class="court-name court-info">Sân 1</h6>
                                 <p>Giá sân 1 tiếng: 100k</p>
                                 <p>Số lượng đặt sân: 2 tỷ</p>
                                 <p>Tình trạng: <span class="text-success">Còn trống</span></p>
@@ -315,7 +310,7 @@
                         <div class="card">
                             <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 2">
                             <div class="card-body text-center">
-                                <h6 class="court-name">Sân 2</h6>
+                                <h6 class="court-name court-info">Sân 2</h6>
                                 <p>Giá sân 1 tiếng: 100k</p>
                                 <p>Số lượng đặt sân: 2 tỷ</p>
                                 <p>Tình trạng: <span class="text-danger">Đã đặt</span></p>
@@ -326,7 +321,7 @@
                         <div class="card">
                             <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 3">
                             <div class="card-body text-center">
-                                <h6 class="court-name">Sân 3</h6>
+                                <h6 class="court-name court-info">Sân 3</h6>
                                 <p>Giá sân 1 tiếng: 100k</p>
                                 <p>Số lượng đặt sân: 2 tỷ</p>
                                 <p>Tình trạng: <span class="text-success">Còn trống</span></p>
@@ -337,7 +332,7 @@
                         <div class="card">
                             <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 4">
                             <div class="card-body text-center">
-                                <h6 class="court-name">Sân 4</h6>
+                                <h6 class="court-name court-info">Sân 4</h6>
                                 <p>Giá sân 1 tiếng: 100k</p>
                                 <p>Số lượng đặt sân: 2 tỷ</p>
                                 <p>Tình trạng: <span class="text-danger">Đã đặt</span></p>
@@ -348,7 +343,7 @@
                         <div class="card">
                             <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 5">
                             <div class="card-body text-center">
-                                <h6 class="court-name">Sân 5</h6>
+                                <h6 class="court-name court-info">Sân 5</h6>
                                 <p>Giá sân 1 tiếng: 100k</p>
                                 <p>Số lượng đặt sân: 2 tỷ</p>
                                 <p>Tình trạng: <span class="text-success">Còn trống</span></p>
@@ -359,7 +354,7 @@
                         <div class="card">
                             <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 6">
                             <div class="card-body text-center">
-                                <h6 class="court-name">Sân 6</h6>
+                                <h6 class="court-name court-info">Sân 6</h6>
                                 <p>Giá sân 1 tiếng: 100k</p>
                                 <p>Số lượng đặt sân: 2 tỷ</p>
                                 <p>Tình trạng: <span class="text-danger">Đã đặt</span></p>
@@ -385,4 +380,3 @@
     </footer>
 </body>
 </html>
-
