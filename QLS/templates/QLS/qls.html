@@ -303,59 +303,67 @@
       Lưu
      </button>
     </form>
-   </div>
   </div>
   <script>
-   let currentCell;
+    let currentCell;
 
-        function addRow() {
-            const table = document.getElementById('fieldTable');
-            const row = table.insertRow();
-            const cell1 = row.insertCell(0);
-            const cell2 = row.insertCell(1);
-            const cell3 = row.insertCell(2);
-            const cell4 = row.insertCell(3);
-            cell1.className = 'border border-black p-2';
-            cell2.className = 'border border-black p-2';
-            cell3.className = 'border border-black p-2';
-            cell4.className = 'border border-black p-2 text-center';
-            cell1.innerHTML = `Sân ${table.rows.length - 1}`;
-            cell2.innerHTML = 'Trống';
-            cell3.innerHTML = 'Chưa thanh toán';
-            cell3.setAttribute('onclick', 'openModal(this)');
-            cell4.innerHTML = '<span class="delete-button" onclick="deleteRow(this)"><i class="fas fa-trash-alt"></i></span>';
-        }
+    function addRow() {
+        const table = document.getElementById('fieldTable');
+        const row = table.insertRow();
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        const cell4 = row.insertCell(3);
+        cell1.className = 'border border-black p-2';
+        cell2.className = 'border border-black p-2';
+        cell3.className = 'border border-black p-2';
+        cell4.className = 'border border-black p-2 text-center';
+        cell1.innerHTML = `Sân ${table.rows.length - 1}`;
+        cell2.innerHTML = 'Trống';
+        cell3.innerHTML = 'Chưa thanh toán';
+        cell3.setAttribute('onclick', 'openModal(this)');
+        cell4.innerHTML = '<span class="delete-button" onclick="deleteRow(this)"><i class="fas fa-trash-alt"></i></span>';
+    }
 
-        function deleteRow(r) {
-            const i = r.parentNode.parentNode.rowIndex;
-            document.getElementById("fieldTable").deleteRow(i);
-        }
+    function deleteRow(r) {
+        const i = r.parentNode.parentNode.rowIndex;
+        document.getElementById("fieldTable").deleteRow(i);
+    }
 
-        function openModal(cell) {
-            currentCell = cell;
-            document.getElementById('paymentStatus').value = cell.innerHTML;
-            document.getElementById('editModal').style.display = 'block';
-        }
+    function openModal(cell) {
+        currentCell = cell;
+        document.getElementById('paymentStatus').value = cell.innerHTML;
+        document.getElementById('editModal').style.display = 'block';
+    }
 
-        function closeModal() {
-            document.getElementById('editModal').style.display = 'none';
-        }
+    function closeModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
 
-        function submitEdit(event) {
-            event.preventDefault();
-            const newText = document.getElementById('paymentStatus').value;
-            if (newText !== null) {
-                currentCell.innerHTML = newText;
-            }
-            closeModal();
-        }
+    function submitEdit(event) {
+    event.preventDefault();
+    const newText = document.getElementById('paymentStatus').value;
+    if (newText !== null) {
+        currentCell.innerHTML = newText;
 
-        window.onclick = function(event) {
-            const modal = document.getElementById('editModal');
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
+        const row = currentCell.parentNode; // Lấy dòng hiện tại
+        const statusCell = row.cells[1]; // Cột "Tình trạng"
+
+        if (newText.trim() === "Đã thanh toán") {
+            statusCell.innerHTML = "Đã đặt"; // Cập nhật thành "Đã đặt"
+        } else if (newText.trim() === "Chưa thanh toán") {
+            statusCell.innerHTML = "Trống"; // Cập nhật thành "Trống"
         }
-  </script>
+    }
+    closeModal();
+}
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('editModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
  </body>
 </html>

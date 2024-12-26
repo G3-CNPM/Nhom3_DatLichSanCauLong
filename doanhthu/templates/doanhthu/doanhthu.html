@@ -245,7 +245,7 @@
       Doanh thu
      </b>
     </label>
-    <input id="revenue" placeholder="Nhập doanh thu" required="" type="number"/>
+    <input id="revenue" placeholder="Nhập doanh thu" required="" type="text"/>
     <button class="btn" onclick="addRevenue()" type="button">
      Thêm
     </button>
@@ -255,37 +255,61 @@
    </form>
   </div>
   <script>
-   function openForm() {
-            document.getElementById("myForm").style.display = "block";
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+
+    function addRevenue() {
+    var month = document.getElementById("month").value;
+    var revenue = document.getElementById("revenue").value; // Giữ nguyên giá trị nhập vào
+
+    if (month && revenue) {
+        var table = document.getElementById("revenueTable");
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+
+        cell1.innerHTML = month;
+        cell2.innerHTML = revenue + "₫"; // Thêm chữ "₫" vào giá trị doanh thu
+        cell3.innerHTML = '<button class="button-delete" onclick="deleteRow(this)">Xóa</button>';
+
+        closeForm();
+    }
+}
+
+    function deleteRow(button) {
+        var row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+
+    // Thêm sự kiện định dạng số khi người dùng nhập vào ô "Doanh thu"
+    document.getElementById("revenue").addEventListener("input", function (e) {
+        let input = e.target;
+        let value = input.value.replace(/,/g, ""); // Loại bỏ dấu phẩy
+
+        // Kiểm tra nếu là số hợp lệ
+        if (!isNaN(value) && value !== "") {
+            input.value = value; // Hiển thị giá trị gốc
+        } else {
+            input.value = ""; // Nếu không phải số, xóa ô
         }
+    });
 
-        function closeForm() {
-            document.getElementById("myForm").style.display = "none";
+    // Định dạng số khi người dùng rời khỏi ô nhập liệu
+    document.getElementById("revenue").addEventListener("blur", function (e) {
+        let input = e.target;
+        let value = input.value.replace(/,/g, ""); // Loại bỏ dấu phẩy
+
+        // Kiểm tra nếu là số hợp lệ, định dạng lại
+        if (!isNaN(value) && value !== "") {
+            input.value = parseInt(value).toLocaleString("vi-VN"); // Định dạng số
         }
-
-        function addRevenue() {
-            var month = document.getElementById("month").value;
-            var revenue = document.getElementById("revenue").value;
-
-            if (month && revenue) {
-                var table = document.getElementById("revenueTable");
-                var row = table.insertRow();
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                var cell3 = row.insertCell(2);
-
-                cell1.innerHTML = month;
-                cell2.innerHTML = revenue + "₫";
-                cell3.innerHTML = '<button class="button-delete" onclick="deleteRow(this)">Xóa</button>';
-
-                closeForm();
-            }
-        }
-
-        function deleteRow(button) {
-            var row = button.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-        }
-  </script>
+    });
+</script>
  </body>
 </html>
