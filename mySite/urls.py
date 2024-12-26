@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from DLSCL import views as home
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',home.get_home),
-    path('Login/', include('Login.urls'))
+    path('', include('checkin.urls')),
+    path('KTTT', include('kttrangthai.urls')),
+    path('HD', include('hoadon.urls')),
 ]
