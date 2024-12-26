@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
  <head>
     {% load static %}
   <title>
@@ -6,15 +6,14 @@
   </title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&amp;display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="{% static 'Login/css/login.css' %}">
-   <!-- <link rel="stylesheet" href="/Login/static/css/login.css"> -->
+  <link rel="stylesheet" href="{% static 'Register/css/register.css' %}">
  </head>
  <body>
   <!-- <img class="background" src="{% static 'Login/pics/lg_bg_png.png' %}" alt="background"> -->
    <div class="header">
-     <img src="{% static 'Login/pics/Logo_Bad.png' %}" alt="Logo">
+     <img src="{% static 'Register/pics/Logo_Bad.png' %}" alt="Logo">
      <nav>
-       <a href="#">
+       <a href="{%url 'home:home'%}">
          Trang chủ
         </a>
         <a href="#">
@@ -31,40 +30,45 @@
         ĐĂNG NHẬP
       </button>
     </div>
-    <div class="container">
-      <div class="login-form">
-        <h2>
-     Register
-    </h2>
-    <div class="input-group">
-     <i class="fas fa-user">
+<div class="container">
+  <div class="register-form">
+   <h2>
+    Register
+   </h2>
+   <div class="input-group">
+    <i class="fas fa-envelope">
+    </i>
+    <input placeholder="Email" type="email"/>
+   </div>
+   <div class="input-group">
+    <i class="fas fa-user">
     </i>
     <input placeholder="Username" type="text"/>
-  </div>
-  <div class="input-group">
+   </div>
+   <div class="input-group">
     <i class="fas fa-lock">
     </i>
     <input placeholder="Password" type="password"/>
-  </div>
-  <div class="links">
+   </div>
+   <div class="input-group">
+    <i class="fas fa-lock">
+    </i>
+    <input placeholder="Confirm password" type="password"/>
+   </div>
+   <div class="links">
     <p>
-      Quên mật khẩu?
-      <a href="#">
-        Đổi mật khẩu
-      </a>
+     Đã có tài khoản?
+     <a href="{%url 'login:login'%}">
+      Đăng nhập ngay
+     </a>
     </p>
-    <p>
-      Da co tai khoan
-      <a href="{%url 'login:login'%}">
-        Đăng kí ngay
-      </a>
-    </p>
-  </div>
-  <button class="submit-btn">
+   </div>
+   <button class="submit-btn">
     Submit
-  </button>
+   </button>
+  </div>
 </div>
+
 </div>
  </body>
- <!-- <img src="{% static 'Login/pics/lg_bg.jpeg' %}" alt=""> -->
 </html>

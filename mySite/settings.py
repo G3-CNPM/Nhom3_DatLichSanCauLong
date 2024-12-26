@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'DLSCL',
     'Login',
     'Register',
+    'Changepass',
 ]
 
 MIDDLEWARE = [

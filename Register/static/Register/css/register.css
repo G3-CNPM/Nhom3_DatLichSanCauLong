@@ -7,7 +7,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url('/static/Login/pics/lg_bg_png.png');
+    background-image: url('/static/Register/pics/lg_bg_png.png');
     background-image: no-repeat center fixed;
     background-size: cover;
     overflow: hidden;
@@ -63,10 +63,10 @@ body, html {
     position: relative;
     left: -50px; /* Move the login button 50px to the left */
 }
-.login-form {
+.register-form {
     margin-top: 100px;
 }
-.login-form h2 {
+.register-form h2 {
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
@@ -80,8 +80,8 @@ body, html {
     padding: 10px 10px 10px 40px;
     border: none;
     border-radius: 5px;
-    background-color: #f5a623;
-    color: black;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
 }
 .input-group i {
     position: absolute;

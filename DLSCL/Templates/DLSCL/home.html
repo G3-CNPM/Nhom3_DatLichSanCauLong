@@ -1,53 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+ <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sân cầu lông</title>
-    <link rel="stylesheet" href="{% static 'DLSCL/css/home.css' %}">
-     <!-- <link rel="stylesheet" href="/DLSCL/static/DLSCL/css/home.css"> -->
-</head>
-<body>
-    <div class="container">
-        <nav>
-            <ol id="logo">
-                <!-- <img src="static/DLSCL/pics/Logo_Bad.png" alt="Logo"> -->
-                <!-- <img src="{% static 'DLSCL/pics/Logo_Bad.png' %}"> -->
-            </ol>
-            <ul>
-                <li>
-                    <a href="#">
-                        Đặt sân
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Hóa đơn
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Voucher
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Dịch vụ
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Kho
-                    </a>
-                </li>
-                <li>
-                    <a href="./test.html">
-                        Quản lý Khách
-                    </a>
-                </li>
-            </ul>
-        </nav>
+  <title>
+   Login Page
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&amp;display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="{% static 'DLSCL/css/home.css' %}">
+   <!-- <link rel="stylesheet" href="/Login/static/css/login.css"> -->
+ </head>
+ <body>
+  <!-- <img class="background" src="{% static 'Login/pics/lg_bg_png.png' %}" alt="background"> -->
+   <div class="header">
+     <img src="{% static 'DLSCL/pics/Logo_Bad.png' %}" alt="Logo">
+     <nav>
+       <a href="#">
+         Trang chủ
+        </a>
+        <a href="#">
+          Sản phẩm
+        </a>
+        <a href="#">
+          Đơn hàng
+        </a>
+        <a href="#">
+          Trang cá nhân
+        </a>
+      </nav>
+      <a href="{%url 'login:login'%}">
+        <button class="login-btn">
+            ĐĂNG NHẬP
+        </button>
+      </a>
+      
     </div>
-</body>
+</div>
+ </body>
+ <!-- <img src="{% static 'Login/pics/lg_bg.jpeg' %}" alt=""> -->
 </html>
