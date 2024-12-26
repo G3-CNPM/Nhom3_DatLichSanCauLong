@@ -102,8 +102,16 @@
                 }
             } else if (selectedScheduleType === "flexibleSchedule") {
                 const flexibleHours = document.getElementById('flexibleHours').value;
+                const flexibleStartTime = document.getElementById('flexibleStartTime').value;
+                const flexibleEndTime = document.getElementById('flexibleEndTime').value;
                 if (!flexibleHours || flexibleHours <= 0) {
                     alert("Vui lòng nhập số giờ hợp lệ cho lịch linh hoạt.");
+                    isValid = false;
+                } else if (!flexibleStartTime || !flexibleEndTime) {
+                    alert("Vui lòng chọn giờ bắt đầu và giờ kết thúc.");
+                    isValid = false;
+                } else if (!validateTime(flexibleStartTime, flexibleEndTime)) {
+                    alert("Giờ kết thúc phải lớn hơn giờ bắt đầu.");
                     isValid = false;
                 }
             }
@@ -278,7 +286,46 @@
                     <div id="flexibleSchedule" class="schedule-fields hidden">
                         <label for="flexibleHours">Tổng số giờ chơi trong tháng:</label>
                         <input type="number" id="flexibleHours" class="form-control mb-3" placeholder="Số giờ" min="1">
-                        <p>Người chơi tự tìm giờ trống và đăng ký.</p>
+                
+                        <label for="flexibleStartTime">Chọn giờ bắt đầu:</label>
+                        <select id="flexibleStartTime" class="form-select mb-3">
+                            <option>Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
+                        
+                        <label for="flexibleEndTime">Chọn giờ kết thúc:</label>
+                        <select id="flexibleEndTime" class="form-select mb-3">
+                            <option>Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
                     </div>
 
                     <button class="btn btn-warning w-100" onclick="placeOrder()">Đặt lịch</button>
@@ -380,4 +427,3 @@
     </footer>
 </body>
 </html>
-
