@@ -8,7 +8,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; 
+            margin: 0;
         }
+
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+          }
 
         h5 {
             font-weight: bold;
@@ -36,6 +46,8 @@
             color: black;
             fron-weight: 1000;
         }
+
+        
     </style>
     <script>
         function toggleFields() {
@@ -414,7 +426,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-light mt-4 p-3 text-center" style="display: flex; justify-content: space-between; align-items: center; padding: 2px;background-color:#d9d9d9 !important;">
+    <footer class="bg-light mt-4 p-3 text-center" style="display: flex; justify-content: space-between; align-items: center; padding: 2px; background-color: #d9d9d9 !important;">
         <div style="text-align: center; flex: -1;">
             <p>@2024. Copyright Group_3_CNPM</p>
         </div>
@@ -424,6 +436,7 @@
                Email: khangtm2739@dtu.edu.vn
             </p>
         </div>
-    </footer>
+    </footer> 
 </body>
 </html>
+
