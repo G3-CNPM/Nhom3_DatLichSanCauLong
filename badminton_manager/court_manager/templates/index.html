@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý sân cầu lông</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Sử dụng Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* Cấu hình chung cho body */
@@ -17,12 +17,12 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #333; /* Màu chữ chính nhẹ nhàng và dễ đọc */
+            color: #333;
         }
 
         h1, h2 {
             font-size: 2em;
-            color: #333; /* Màu chữ chính */
+            color: #333;
             margin-bottom: 20px;
         }
 
@@ -33,13 +33,24 @@
         /* Thanh điều hướng */
         nav {
             background-image: linear-gradient(to right, #00bcd4, #4caf50);
-            padding: 15px;
+            padding: 20px;
             margin-bottom: 30px;
             width: 100%;
             display: flex;
-            justify-content: center;
+            align-items: center; /* Căn giữa các mục theo chiều dọc */
+            justify-content: center; /* Căn giữa các mục trong thanh điều hướng */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative; /* Để logo có thể đặt ở góc trái */
+        }
+
+        /* Logo */
+        nav img {
+            width: 120px; /* Chiều rộng của logo */
+            height: 65px; /* Chiều cao của logo */
+            border-radius: 20px; /* Bo góc logo */
+            position: absolute; /* Đặt logo ở góc trái */
+            left: 20px; /* Khoảng cách từ cạnh trái */
         }
 
         nav a {
@@ -113,12 +124,12 @@
         table th {
             background-color: #f7f7f7;
             font-weight: 600;
-            color: #555; /* Màu chữ cho tiêu đề bảng */
+            color: #555;
         }
 
         table td {
             background-color: #ffffff;
-            color: #666; /* Màu chữ cho các ô trong bảng */
+            color: #666;
         }
 
         /* Chart */
@@ -137,11 +148,11 @@
         #contact ul li {
             margin: 10px 0;
             font-size: 1.1em;
-            color: #333; /* Màu chữ cho liên hệ */
+            color: #333;
         }
 
         #contact a {
-            color: #4caf50; /* Màu chữ cho liên kết */
+            color: #4caf50;
             text-decoration: none;
         }
 
@@ -153,6 +164,7 @@
 <body>
     <!-- Thanh điều hướng -->
     <nav>
+        <img src="{% static 'court_manager/Logo_Bad.png' %}" alt="Logo" id="logo">
         <a href="#" onclick="showSection('home')">Trang chủ</a>
         <a href="#" onclick="showSection('register')">Đăng ký</a>
         <a href="#" onclick="showSection('statistics')">Thống kê doanh thu</a>
@@ -189,7 +201,7 @@
         </div>
 
         <div id="total-profit">
-            <h3>Tổng lợi nhuận: <span id="total-profit-amount">0</span> VND</h3>
+            <h3>Tổng lợi nhuận: <span id="total-profit-amount">0</span> VND </h3>
         </div>
 
         <canvas id="revenue-chart" width="300" height="150"></canvas>
