@@ -129,13 +129,13 @@
     <img src="{%static 'kttrangthai/pics/Logo_Bad.png'%}" alt="Logo Feaver">
    <nav>
     <a href="#">
-     Check-in
+        <a href="{%url 'checkin:checkin'%}"> Check-in  </a>
     </a>
     <a class="active" href="#">
-     Tình trạng
+        <a href="{%url 'kttrangthai:kttrangthai'%}">Trạng thái </a>
     </a>
     <a href="#">
-     Hỗ trợ
+        <a href="{%url 'hotro:hotro'%}">Hỗ trợ </a>
     </a>
    </nav>
    <button class="login-btn">
@@ -361,10 +361,6 @@
    <div class="buttons">
     <button onclick="window.history.back()">
         Quay lại
-    </button>
-    
-    <button>
-        Cập nhật
     </button>
     <button>
         Lưu

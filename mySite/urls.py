@@ -22,4 +22,5 @@ urlpatterns = [
     path('', include('checkin.urls')),
     path('KTTT', include('kttrangthai.urls')),
     path('HD', include('hoadon.urls')),
+    path('HT', include('hotro.urls')),
 ]
