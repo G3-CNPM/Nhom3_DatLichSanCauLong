@@ -1,10 +1,11 @@
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt Sân Cầu Lông</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -18,7 +19,7 @@
             flex-grow: 1;
             display: flex;
             flex-direction: column;
-          }
+        }
 
         h5 {
             font-weight: bold;
@@ -31,10 +32,10 @@
 
         #logo {
             background-image: url("/static/khachhang/Logo_Bad.png");
-            background-size: 150px;
+            background-size: 120px;
             background-repeat: no-repeat;
-            width: 150px;
-            height: 80px;
+            width: 120px;
+            height: 65px;
             border-radius: 10%;
         }
 
@@ -44,10 +45,83 @@
 
         .court-info {
             color: black;
-            fron-weight: 1000;
+            font-weight: bold;
         }
 
-        
+        .header .login-btn {
+            background-color: #ffcc99;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .header {
+            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161), #13a1b1);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+       .header nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .header a:hover {
+            text-decoration: underline;
+        }
+
+        .court-card {
+            margin-bottom: 20px;
+        }
+
+        .court-card .card {
+            text-align: center;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #d9d9d9; 
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .btn-warning {
+            background-color:rgb(143, 197, 17);
+            color: white;
+        }
+
+        .btn-success {
+            background-color:rgb(59, 22, 63);
+            color: white;
+        }
+
+        .btn {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .qr-code-img {
+            width: 270px;
+            height: auto; 
+        }
     </style>
     <script>
         function toggleFields() {
@@ -88,7 +162,7 @@
             }
 
             if (selectedScheduleType === "fixedSchedule") {
-                const fixedDay = document.getElementById('fixedDay').value;
+                const fixedDay = document.getElementById('fixedDay'). value;
                 const fixedStartTime = document.getElementById('fixedStartTime').value;
                 const fixedEndTime = document.getElementById('fixedEndTime').value;
                 const fixedDuration = document.getElementById('fixedDuration').value;
@@ -130,7 +204,6 @@
 
             if (isValid) {
                 alert("Đặt lịch thành công!");
-                // Bạn có thể thêm mã để gửi dữ liệu đến máy chủ ở đây
             }
         }
 
@@ -150,29 +223,25 @@
     </script>
 </head>
 <body>
-    <!-- Header -->
-    <div class="container-fluid text-white p-2" style="background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);">
-        <div class="d-flex justify-content-between align-items-center">
+    <div class="header">
             <div id="logo">
                 <p>.</p>
             </div>
             <div>
                 <nav>
-                    <a href="#" class="text-white me-3">Trang chủ</a>
-                    <a href="#" class="text-white me-3">Sản phẩm</a>
-                    <a href="#" class="text-white me-3">Đơn hàng</a>
-                    <a href="#" class="text-white me-3">Trang cá nhân</a>
+                    <a href="#" class="court-info me-3">Trang chủ</a>
+                    <a href="#" class="court-info me-3">Sản phẩm</a>
+                    <a href="#" class="court-info me-3">Đơn hàng</a>
+                    <a href="#" class="court-info me-3">Trang cá nhân</a>
                 </nav>
-            </div>
-            <button class="btn btn-warning">ĐĂNG NHẬP</button>
+            </div>    
+            <button class="login-btn">ĐĂNG NHẬP</button>      
         </div>
-    </div>
+    </header>
 
-    <!-- Tìm kiếm sân -->
-    <div class="container mt-3">
+    <main class="container mt-3">
         <div class="row">
-            <!-- Cột tìm kiếm -->
-            <div class="col-md-3">
+            <aside class="col-md-3">
                 <div class="p-3 border bg-light">
                     <h5 class="text-center court-info">TÌM SÂN</h5>
                     <label for="chonSan">Chọn sân:</label>
@@ -193,11 +262,10 @@
                         <option value="flexibleSchedule">Lịch linh hoạt</option>
                     </select>
 
-                    <!-- Lịch cố định -->
                     <div id="fixedSchedule" class="schedule-fields hidden">
                         <label for="fixedDay">Chọn thứ trong tuần:</label>
                         <select id="fixedDay" class="form-select mb-3">
-                            <option>Chọn thứ</option>
+                            <option value="" disabled selected>-- Chọn thứ --</option>
                             <option>Thứ 2</option>
                             <option>Thứ 3</option>
                             <option>Thứ 4</option>
@@ -250,7 +318,6 @@
                         <input type="number" id="fixedDuration" class="form-control mb-3" placeholder="Số tháng" min="1">
                     </div>
 
-                    <!-- Đặt lịch ngày -->
                     <div id="singleDaySchedule" class="schedule-fields hidden">
                         <label for="singleDayDate">Chọn ngày:</label>
                         <input type="date" id="singleDayDate" class="form-control mb-3">
@@ -275,7 +342,7 @@
                         </select>
                         <label for="singleDayEndTime">Chọn giờ kết thúc:</label>
                         <select id="singleDayEndTime" class="form-select mb-3">
-                            <option>Chọn giờ</option>
+                            <option >Chọn giờ</option>
                             <option>08:00</option>
                             <option>09:00</option>
                             <option>10:00</option>
@@ -294,7 +361,6 @@
                         </select>
                     </div>
 
-                    <!-- Lịch linh hoạt -->
                     <div id="flexibleSchedule" class="schedule-fields hidden">
                         <label for="flexibleHours">Tổng số giờ chơi trong tháng:</label>
                         <input type="number" id="flexibleHours" class="form-control mb-3" placeholder="Số giờ" min="1">
@@ -345,22 +411,20 @@
                     <h5 class="text-center mt-4 court-info">THANH TOÁN TRỰC TUYẾN</h5>
                     <button class="btn btn-success w-100" onclick="showQRCode()">Thanh toán</button>
                     <div id="qr-code" class="mt-3 hidden">
-                        <img src="https://media.discordapp.net/attachments/1314229996604096582/1321886174511501322/IMG_20241226_122246.jpg?ex=676eddef&is=676d8c6f&hm=a0e095c6e0aaf70df71d9aec7d98b9bb8f5ba104c5f76673669528cb9e18217f&=&format=webp&width=697&height=662" alt="QR code with black and white squares arranged in a specific pattern" class="w-64 h-64 mx-auto">
+                        <img src="https://media.discordapp.net/attachments/1314229996604096582/1321886174511501322/IMG_20241226_122246.jpg?ex=6778186f&is=6776c6ef&hm=5b3f15bc175306b984693a5bb0948c6efcad7bbf232cd2a829fd46794e6c0c33&=&format=webp&width=697&height=662" alt="QR code" class="qr-code-img mx-auto">
                     </div>
                 </div>
-            </div>
+            </aside>
 
-            <!-- Cột thông tin sân -->
-            <div class="col-md-9">
+            <section class="col-md-9">
                 <div class="row">
-                    <!-- Card sân -->
                     <div class="col-md-4 mb-4 court-card" data-court="court1">
                         <div class="card">
                             <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 1">
                             <div class="card-body text-center">
                                 <h6 class="court-name court-info">Sân 1</h6>
                                 <p>Giá sân 1 tiếng: 100k</p>
-                                <p>Số lượng đặt sân: 2 tỷ</p>
+                                <p>Số lượng đặt sân : 2 tỷ</p>
                                 <p>Tình trạng: <span class="text-success">Còn trống</span></p>
                             </div>
                         </div>
@@ -421,12 +485,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
-    </div>
+    </main>
 
-    <!-- Footer -->
-    <footer class="bg-light mt-4 p-3 text-center" style="display: flex; justify-content: space-between; align-items: center; padding: 2px; background-color: #d9d9d9 !important;">
+    <footer class="footer mt-4 p-3 text-center">
         <div style="text-align: center; flex: -1;">
             <p>@2024. Copyright Group_3_CNPM</p>
         </div>
@@ -436,7 +499,6 @@
                Email: khangtm2739@dtu.edu.vn
             </p>
         </div>
-    </footer> 
+    </footer>
 </body>
 </html>
-
