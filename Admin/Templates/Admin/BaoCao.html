@@ -1,0 +1,212 @@
+<html>
+    {%load static%}
+  <head>
+    <title>Feaver</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+      }
+
+      .navbar {
+        display: flex;
+        align-items: center;
+        background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
+        padding: 10px 20px;
+        justify-content: space-between; 
+      }
+
+      .navbar .logo {
+        display: flex;
+        align-items: center;
+      }
+
+      .navbar img {
+        height: 65px;
+        border-radius: 10%;
+      }
+
+      .navbar h1 {
+        font-size: 24px;
+        color: white;
+        margin: 0;
+      }
+
+      .navbar nav {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+      }
+
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 16px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      .navbar a.active {
+        border-bottom: 2px solid white;
+      }
+
+      .navbar .login-btn {
+        background-color: #f5a623;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .filters {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .filters select {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      .columns {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .column {
+        background-color: #e0e0e0;
+        padding: 20px;
+        border-radius: 10px;
+        width: 32%;
+      }
+
+      .column button {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+        cursor: pointer;
+      }
+
+      .info-box {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        display: none; 
+      }
+
+      @media (max-width: 768px) {
+        .columns {
+          flex-direction: column;
+        }
+        .column {
+          width: 100%;
+          margin-bottom: 20px;
+        }
+      }
+      .header img{
+            /* background-image: url("/static/SanPham/js/Logo_Bad.png");*/
+            background-size: 120px;
+            background-repeat: no-repeat;
+            width: 120px;
+            height: 65px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <img src="{%static 'Admin/Logo_Bad.png'%}" alt="Logo Feaver">
+      </div>
+      <nav>
+        <a href="#">Quản lý tài khoản</a>
+        <a href="#">Quản lý sân cầu lông</a>
+        <a href="#">Lịch sử thay đổi thông tin</a>
+        <a class="active" href="#">Thống kê</a>
+      </nav>
+      <button class="login-btn">Đăng nhập</button>
+    </div>
+    <div class="content">
+      <div class="filters">
+        <div>
+          <label for="time-range">Khoảng thời gian:</label>
+          <select id="time-range">
+            <option value="">Chọn khoảng thời gian</option>
+            <option value="day">Theo ngày</option>
+            <option value="month">Theo tháng</option>
+            <option value="year">Theo năm</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <button>Người dùng đang hoạt động</button>
+        </div>
+        <div class="column">
+          <button>Lịch sử đặt sân</button>
+        </div>
+        <div class="column">  
+          <button>Người dùng mới</button>
+        </div>
+      </div>
+
+      <div id="info-box" class="info-box">
+        <h3>Thông tin tự động hiển thị:</h3>
+        <div id="info-content">
+          <p><strong>Người dùng đang hoạt động:</strong> <span id="active-users-display">Thông tin sẽ hiển thị ở đây...</span></p>
+          <p><strong>Lịch sử đặt sân:</strong> <span id="booking-history-display">Thông tin sẽ hiển thị ở đây...</span></p>
+          <p><strong>Người dùng mới:</strong> <span id="new-users-display">Thông tin sẽ hiển thị ở đây...</span></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const timeRangeSelect = document.getElementById('time-range');
+      const infoBox = document.getElementById('info-box');
+      const activeUsersDisplay = document.getElementById('active-users-display');
+      const bookingHistoryDisplay = document.getElementById('booking-history-display');
+      const newUsersDisplay = document.getElementById('new-users-display');
+
+      timeRangeSelect.addEventListener('change', function() {
+        const selectedValue = this.value;
+
+        if (selectedValue === 'day') {
+          infoBox.style.display = 'block'; 
+          activeUsersDisplay.textContent = 'Thông tin người dùng đang hoạt động trong ngày';
+          bookingHistoryDisplay.textContent = 'Thông tin lịch sử đặt sân trong ngày';
+          newUsersDisplay.textContent = 'Thông tin người dùng mới trong ngày';
+        } else if (selectedValue === 'month') {
+          infoBox.style.display = 'block'; 
+          activeUsersDisplay.textContent = 'Thông tin người dùng đang hoạt động trong tháng';
+          bookingHistoryDisplay.textContent = 'Thông tin lịch sử đặt sân trong tháng';
+          newUsersDisplay.textContent = 'Thông tin người dùng mới trong tháng';
+        } else if (selectedValue === 'year') {
+          infoBox.style.display = 'block'; 
+          activeUsersDisplay.textContent = 'Thông tin người dùng đang hoạt động trong năm';
+          bookingHistoryDisplay.textContent = 'Thông tin lịch sử đặt sân trong năm';
+          newUsersDisplay.textContent = 'Thông tin người dùng mới trong năm';
+        } else {
+          infoBox.style.display = 'none'; 
+        }
+      });
+    </script>
+  </body>
+</html>
