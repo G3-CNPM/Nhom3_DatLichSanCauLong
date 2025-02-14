@@ -1,0 +1,209 @@
+{% extends "QLS/base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "QLS/thanhtoan.css" %}">
+{% endblock css %}
+{% block js %}
+{{block.super}}
+<script>
+    function openForm() {
+        document.getElementById("myForm").style.display = "block";
+    }
+    
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+    }
+    
+    function addPaymentAccount(event) {
+        event.preventDefault();
+        var username = document.getElementById("username").value;
+        var paymentMethod = document.getElementById("payment-method").value;
+    
+        var table = document.getElementById("paymentTable");
+        var newRow = table.insertRow();
+    
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+    
+        cell1.innerHTML = username;
+        cell2.innerHTML = paymentMethod;
+        cell3.innerHTML = '<div class="action-buttons"><button class="btn edit" onclick="editRow(this)">Sửa</button><button class="btn delete" onclick="deleteRow(this)">Xóa</button></div>';
+    
+        document.getElementById("username").value = "";
+        document.getElementById("payment-method").value = "";
+    
+        closeForm();
+    }
+    
+    function deleteRow(button) {
+        var row = button.parentNode.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+    
+    function editRow(button) {
+        var row = button.parentNode.parentNode.parentNode;
+        var username = row.cells[0].innerHTML;
+        var paymentMethod = row.cells[1].innerHTML;
+    
+        document.getElementById("username").value = username;
+        document.getElementById("payment-method").value = paymentMethod;
+    
+        deleteRow(button);
+        openForm();
+    }
+    
+</script>
+{% endblock js %}
+
+{% block navbar %}
+<div class="header">
+    <img alt="Logo" src="{% static 'QLS/Logo_Bad.png' %}" />
+    <div class="menu">
+        <a href="{% url 'base:qlsan' %}">
+            Quản lý sân
+        </a>
+        <a class="active" href="{% url 'base:thanhtoan' %}">
+            Quản lý tài khoản thanh toán
+        </a>
+        <a href="{% url 'base:datsan' %}">
+            Quản lý lịch đặt sân
+        </a>
+        <a href="{% url 'base:doanhthu' %}">
+            Thống kê doanh thu
+        </a>
+    </div>
+    <a class="login-button" href="#">
+        Đăng nhập
+    </a>
+</div>
+{% endblock navbar %}
+
+{% block main-content %}
+<body>
+    <div class="container">
+        <h2 class="table-title">
+            DANH SÁCH TÀI KHOẢN THANH TOÁN
+        </h2>
+        <div class="table-container">
+            <table id="paymentTable">
+                <tr>
+                    <th>
+                        Tên người dùng
+                    </th>
+                    <th>
+                        Phương thức thanh toán
+                    </th>
+                    <th>
+                        Hành động
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        Nguyễn Xuân Minh
+                    </td>
+                    <td>
+                        Ví điện tử
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn edit" onclick="editRow(this)">
+                                Sửa
+                            </button>
+                            <button class="btn delete" onclick="deleteRow(this)">
+                                Xóa
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Trần Văn A
+                    </td>
+                    <td>
+                        Thẻ tín dụng
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn edit" onclick="editRow(this)">
+                                Sửa
+                            </button>
+                            <button class="btn delete" onclick="deleteRow(this)">
+                                Xóa
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Phạm Thị B
+                    </td>
+                    <td>
+                        Chuyển khoản ngân hàng
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn edit" onclick="editRow(this)">
+                                Sửa
+                            </button>
+                            <button class="btn delete" onclick="deleteRow(this)">
+                                Xóa
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Nguyễn Văn C
+                    </td>
+                    <td>
+                        Tiền mặt
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn edit" onclick="editRow(this)">
+                                Sửa
+                            </button>
+                            <button class="btn delete" onclick="deleteRow(this)">
+                                Xóa
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>            
+        </div>
+        <button class="button" onclick="openForm()">
+            [Thêm]
+        </button>
+    </div>
+
+    <div class="form-popup" id="myForm">
+        <form class="form-container" onsubmit="addPaymentAccount(event)">
+            <h2>
+                Thêm tài khoản thanh toán
+            </h2>
+            <label for="username">
+                <b>
+                    Tên người dùng
+                </b>
+            </label>
+            <input id="username" name="username" placeholder="Nhập tên người dùng" required="" type="text" />
+            <label for="payment-method">
+                <b>
+                    Phương thức thanh toán
+                </b>
+            </label>
+            <input id="payment-method" name="payment-method" placeholder="Nhập phương thức thanh toán" required="" type="text" />
+            <button class="btn" type="submit">
+                Thêm
+            </button>
+            <button class="btn cancel" onclick="closeForm()" type="button">
+                Đóng
+            </button>
+        </form>
+    </div>
+</body>
+{% endblock main-content %}
+
+

@@ -1,338 +1,24 @@
-<html lang="vi">
-    {%load static%}
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Quản lý sân
-  </title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-  <style>
-   body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        .header {
-            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .header h1 {
-            font-size: 1.5em;
-            margin-left: 20px;
-        }
-        .header img {
-            width: 100px;
-            height: 60px;
-            border-radius: 20%;
-            opacity: 90%;
-        }
-        .header .login-button {
-            background-color: gold;
-            color: black;
-            padding: 8px 16px;
-            border-radius: 4px;
-            text-decoration: none;
-            margin-right: 20px;
-        }
+{% extends "QLS/base.html" %}
+{% load static %}
 
-        .menu {
-            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
-            padding: 10px;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-        }
-        .menu a {
-            display: inline-block;
-            margin: 0 10px;
-            text-decoration: none;
-            color: #333;
-        }
-        .menu a.active {
-            text-decoration: underline;
-            font-weight: bold;
-        }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border: 1px solid black;
-            table-layout: fixed;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-            word-wrap: break-word;
-        }
-        th {
-            background-color: #f2f2f2;
-            text-align: center;
-        }
-        .button {
-            display: block;
-            margin: 10px auto;
-            padding: 8px 16px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            width: fit-content;
-        }
-        .table-container {
-            border: 2px solid #00FFFF;
-            padding: 10px;
-            display: inline-block;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-        }
-        .modal-content {
-            background-color: #fefefe;
-            margin: 15% auto;
-            padding: 20px;
-            border: 1px solid #888;
-            width: 80%;
-            max-width: 500px;
-        }
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-        .header img{
-            background-size: 150px;
-            background-repeat: no-repeat;
-            width: 150px;
-            height: 80px;
-            border-radius: 10%;
-        }
-  </style>
- </head>
- <body>
-  <div class="header">
-   <img alt="Logo" src="{%static 'QLS/Logo_Bad.png'%}" />
-   <a class="login-button" href="#">
-    Đăng nhập
-   </a>
-  </div>
-  <div class="menu">
-   <a class="active" href="{%url 'qls:qlsan'%}">
-    Quản lý sân
-   </a>
-   <a href="{%url 'thanhtoan:thanhtoan'%}">
-    Quản lý tài khoản thanh toán
-   </a>
-   <a href="{%url 'datsan:datsan'%}">
-    Quản lý lịch đặt sân
-   </a>
-   <a href="{%url 'dt:dt'%}">
-    Thống kê doanh thu
-   </a>
-  </div>
-  <div class="container">
-   <h2>
-    DANH SÁCH CÁC SÂN
-   </h2>
-   <div class="table-container">
-    <table id="fieldTable">
-     <tr>
-      <th>
-       Tên sân
-      </th>
-      <th>
-       Tình trạng
-      </th>
-      <th>
-       Tình trạng thanh toán
-      </th>
-      <th>
-       Hành động
-      </th>
-     </tr>
-     <tr>
-      <td>
-       Sân 1
-      </td>
-      <td>
-       Trống
-      </td>
-      <td onclick="openModal(this)">
-       Chưa thanh toán
-      </td>
-      <td class="text-center">
-       <span class="delete-button" onclick="deleteRow(this)">
-        <i class="fas fa-trash-alt">
-        </i>
-       </span>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       Sân 2
-      </td>
-      <td>
-       Đã đặt
-      </td>
-      <td onclick="openModal(this)">
-       Đã thanh toán
-      </td>
-      <td class="text-center">
-       <span class="delete-button" onclick="deleteRow(this)">
-        <i class="fas fa-trash-alt">
-        </i>
-       </span>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       Sân 3
-      </td>
-      <td>
-       Đã đặt
-      </td>
-      <td onclick="openModal(this)">
-       Đã thanh toán
-      </td>
-      <td class="text-center">
-       <span class="delete-button" onclick="deleteRow(this)">
-        <i class="fas fa-trash-alt">
-        </i>
-       </span>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       Sân 4
-      </td>
-      <td>
-       Trống
-      </td>
-      <td onclick="openModal(this)">
-       Chưa thanh toán
-      </td>
-      <td class="text-center">
-       <span class="delete-button" onclick="deleteRow(this)">
-        <i class="fas fa-trash-alt">
-        </i>
-       </span>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       Sân 5
-      </td>
-      <td>
-       Đã đặt
-      </td>
-      <td onclick="openModal(this)">
-       Đã thanh toán
-      </td>
-      <td class="text-center">
-       <span class="delete-button" onclick="deleteRow(this)">
-        <i class="fas fa-trash-alt">
-        </i>
-       </span>
-      </td>
-     </tr>
-     <tr>
-      <td>
-       Sân 6
-      </td>
-      <td>
-       Trống
-      </td>
-      <td onclick="openModal(this)">
-       Chưa thanh toán
-      </td>
-      <td class="text-center">
-       <span class="delete-button" onclick="deleteRow(this)">
-        <i class="fas fa-trash-alt">
-        </i>
-       </span>
-      </td>
-     </tr>
-    </table>
-   </div>
-   <a class="button" href="#" onclick="addRow()">
-    [Thêm sân mới]
-   </a>
-  </div>
-  <div class="modal" id="editModal">
-   <div class="modal-content">
-    <span class="close" onclick="closeModal()">
-     ×
-    </span>
-    <form id="editForm" onsubmit="submitEdit(event)">
-     <label for="paymentStatus">
-      Nhập tình trạng thanh toán mới:
-     </label>
-     <input id="paymentStatus" name="paymentStatus" required="" type="text"/>
-     <button type="submit">
-      Lưu
-     </button>
-    </form>
-  </div>
-  <script>
-    let currentCell;
-
-    function addRow() {
-        const table = document.getElementById('fieldTable');
-        const row = table.insertRow();
-        const cell1 = row.insertCell(0);
-        const cell2 = row.insertCell(1);
-        const cell3 = row.insertCell(2);
-        const cell4 = row.insertCell(3);
-        cell1.className = 'border border-black p-2';
-        cell2.className = 'border border-black p-2';
-        cell3.className = 'border border-black p-2';
-        cell4.className = 'border border-black p-2 text-center';
-        cell1.innerHTML = `Sân ${table.rows.length - 1}`;
-        cell2.innerHTML = 'Trống';
-        cell3.innerHTML = 'Chưa thanh toán';
-        cell3.setAttribute('onclick', 'openModal(this)');
-        cell4.innerHTML = '<span class="delete-button" onclick="deleteRow(this)"><i class="fas fa-trash-alt"></i></span>';
-    }
-
-    function deleteRow(r) {
-        const i = r.parentNode.parentNode.rowIndex;
-        document.getElementById("fieldTable").deleteRow(i);
-    }
+{% block css %}
+<link rel="stylesheet" href="{% static 'QLS/qls.css' %}">
+{% endblock css %}
+{% block js %}
+{{block.super}}
+<script>
+    let currentRow;
 
     function openModal(cell) {
-        currentCell = cell;
-        document.getElementById('paymentStatus').value = cell.innerHTML;
+        currentRow = cell.parentNode.parentNode; // Lấy dòng chứa ô được nhấp
+        const statusCell = currentRow.cells[1]; // Ô tình trạng sân
+        const paymentStatusCell = currentRow.cells[2]; // Ô tình trạng thanh toán
+
+        // Set giá trị cho các trường trong modal
+        document.getElementById('status').value = statusCell.innerHTML;
+        document.getElementById('paymentStatus').value = paymentStatusCell.innerHTML;
+
+        // Hiển thị modal
         document.getElementById('editModal').style.display = 'block';
     }
 
@@ -341,22 +27,17 @@
     }
 
     function submitEdit(event) {
-    event.preventDefault();
-    const newText = document.getElementById('paymentStatus').value;
-    if (newText !== null) {
-        currentCell.innerHTML = newText;
+        event.preventDefault();
 
-        const row = currentCell.parentNode; // Lấy dòng hiện tại
-        const statusCell = row.cells[1]; // Cột "Tình trạng"
+        const newStatus = document.getElementById('status').value;
+        const newPaymentStatus = document.getElementById('paymentStatus').value;
 
-        if (newText.trim() === "Đã thanh toán") {
-            statusCell.innerHTML = "Đã đặt"; // Cập nhật thành "Đã đặt"
-        } else if (newText.trim() === "Chưa thanh toán") {
-            statusCell.innerHTML = "Trống"; // Cập nhật thành "Trống"
-        }
+        // Cập nhật các giá trị vào bảng
+        currentRow.cells[1].innerHTML = newStatus;
+        currentRow.cells[2].innerHTML = newPaymentStatus;
+
+        closeModal();
     }
-    closeModal();
-}
 
     window.onclick = function(event) {
         const modal = document.getElementById('editModal');
@@ -365,5 +46,121 @@
         }
     }
 </script>
- </body>
-</html>
+{% endblock js %}
+
+{% block navbar %}
+<div class="header">
+    <img alt="Logo" src="{% static 'QLS/Logo_Bad.png' %}" />
+    <div class="menu">
+        <a class="active" href="{% url 'base:qlsan' %}">Quản lý sân</a>
+        <a href="{% url 'base:thanhtoan' %}">Quản lý tài khoản thanh toán</a>
+        <a href="{% url 'base:datsan' %}">Quản lý lịch đặt sân</a>
+        <a href="{% url 'base:doanhthu' %}">Thống kê doanh thu</a>
+    </div>
+    <a class="login-button" href="#">Đăng nhập</a>
+</div>
+{% endblock navbar %}
+
+{% block main-content %}
+<body>
+<div class="container">
+            <h2>DANH SÁCH CÁC SÂN</h2>
+            <div class="table-container">
+                <table id="fieldTable">
+                    <tr>
+                        <th>Tên sân</th>
+                        <th>Tình trạng</th>
+                        <th>Tình trạng thanh toán</th>
+                        <th>Hành động</th>
+                    </tr>
+                    <tr>
+                        <td>Sân 1</td>
+                        <td>Trống</td>
+                        <td onclick="openModal(this)">Chưa thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>Sân 2</td>
+                        <td>Đã đặt</td>
+                        <td onclick="openModal(this)">Đã thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 3</td>
+                        <td>Trống</td>
+                        <td onclick="openModal(this)">Chưa thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 4</td>
+                        <td>Đã đặt</td>
+                        <td onclick="openModal(this)">Đã thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 5</td>
+                        <td>Trống</td>
+                        <td onclick="openModal(this)">Chưa thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 6</td>
+                        <td>Đã đặt</td>
+                        <td onclick="openModal(this)">Đã thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal" id="editModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">×</span>
+                <form id="editForm" onsubmit="submitEdit(event)">
+                    <label for="status">Chọn tình trạng sân:</label>
+                    <select id="status" name="status">
+                        <option value="Trống">Trống</option>
+                        <option value="Đã đặt">Đã đặt</option>
+                    </select>
+
+                    <label for="paymentStatus">Chọn tình trạng thanh toán:</label>
+                    <select id="paymentStatus" name="paymentStatus">
+                        <option value="Chưa thanh toán">Chưa thanh toán</option>
+                        <option value="Đã thanh toán">Đã thanh toán</option>
+                    </select>
+
+                    <button type="submit">Lưu</button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+{% endblock main-content %}
+    
+    
+
+        
