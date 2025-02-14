@@ -1,0 +1,23 @@
+{
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "xprotocol",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 33060,
+            "driver": "MySQL",
+            "name": "CNPM",
+            "database": "mysite",
+            "username": "root",
+            "password": "khang2305@",
+            "connectionTimeout": 30
+        }
+    ],
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+    "workbench.colorTheme": "Default Dark Modern"
+}

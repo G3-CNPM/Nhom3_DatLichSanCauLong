@@ -1,0 +1,85 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block title %}
+  <title>
+   Lịch sử thay đổi thông tin
+  </title>
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'hq/css/lichsu.css' %}">
+{% endblock css %}
+
+{% block main-content %}
+ <body>
+  <div class="navbar">
+   <img src="{%static 'hq/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+   <div id="menu">
+        <a href="{% url 'admin_user:taikhoan' %}">Quản lý tài khoản</a>
+        <a href="{% url 'admin_user:sancaulong' %}">Quản lý sân cầu lông</a>
+        <a class="active" href="{% url 'admin_user:lichsu' %}">Lịch sử thay đổi thông tin</a>
+        <a href="{% url 'admin_user:baocao' %}">Báo cáo</a>
+   </div>
+   <button class="login-btn">Đăng nhập</button>
+  </div>
+  <div class="container">
+   <table id="historyTable">
+    <thead>
+     <tr>
+      <th colspan="4">Lịch sử thay đổi <i class="fas fa-search"></i></th>
+     </tr>
+     <tr>
+      <th>Thời gian</th>
+      <th>Người thay đổi</th>
+      <th>Thao tác thực hiện</th>
+      <th>Hành động</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>19/12/2024</td>
+      <td>Huy-code(Manager)</td>
+      <td>Thay đổi thông tin sân 2</td>
+      <td><span class="delete-btn" onclick="deleteRow(this)">Xóa</span></td>
+     </tr>
+     <tr>
+      <td>11/12/2024</td>
+      <td>Ken(Staff)</td>
+      <td>Check-in thông tin cho khách</td>
+      <td><span class="delete-btn" onclick="deleteRow(this)">Xóa</span></td>
+     </tr>
+    </tbody>
+   </table>
+   <div class="add-info" onclick="addRow()">[Thêm thông tin]</div>
+  </div>
+ </body>
+{% endblock main-content %}
+
+{% block js %}
+<script>
+    function addRow() {
+             var table = document.getElementById("historyTable").getElementsByTagName('tbody')[0];
+             var newRow = table.insertRow();
+             
+             var cell1 = newRow.insertCell(0);
+             var cell2 = newRow.insertCell(1);
+             var cell3 = newRow.insertCell(2);
+             var cell4 = newRow.insertCell(3);
+             
+             cell1.contentEditable = "true";
+             cell2.contentEditable = "true";
+             cell3.contentEditable = "true";
+             
+             cell1.innerHTML = "";
+             cell2.innerHTML = "";
+             cell3.innerHTML = "";
+             cell4.innerHTML = '<span class="delete-btn" onclick="deleteRow(this)">Xóa</span>';
+         }
+ 
+         function deleteRow(r) {
+             var i = r.parentNode.parentNode.rowIndex;
+             document.getElementById("historyTable").deleteRow(i);
+         }
+   </script>
+{% endblock js %}

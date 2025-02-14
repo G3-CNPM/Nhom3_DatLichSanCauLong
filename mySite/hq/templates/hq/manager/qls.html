@@ -1,0 +1,166 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "hq/css/qls.css" %}">
+{% endblock css %}
+{% block js %}
+{{block.super}}
+<script>
+    let currentRow;
+
+    function openModal(cell) {
+        currentRow = cell.parentNode.parentNode; // Lấy dòng chứa ô được nhấp
+        const statusCell = currentRow.cells[1]; // Ô tình trạng sân
+        const paymentStatusCell = currentRow.cells[2]; // Ô tình trạng thanh toán
+
+        // Set giá trị cho các trường trong modal
+        document.getElementById('status').value = statusCell.innerHTML;
+        document.getElementById('paymentStatus').value = paymentStatusCell.innerHTML;
+
+        // Hiển thị modal
+        document.getElementById('editModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+
+    function submitEdit(event) {
+        event.preventDefault();
+
+        const newStatus = document.getElementById('status').value;
+        const newPaymentStatus = document.getElementById('paymentStatus').value;
+
+        // Cập nhật các giá trị vào bảng
+        currentRow.cells[1].innerHTML = newStatus;
+        currentRow.cells[2].innerHTML = newPaymentStatus;
+
+        closeModal();
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('editModal');
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+{% endblock js %}
+
+{% block navbar %}
+<div class="header">
+    <img alt="Logo" src="{% static 'hq/pics/Logo_Bad.png' %}" />
+    <div class="menu">
+        <a class="active" href="{% url 'admin_user:qls' %}">Quản lý sân</a>
+        <a href="{% url 'admin_user:thanhtoan' %}">Quản lý tài khoản thanh toán</a>
+        <a href="{% url 'admin_user:datsan' %}">Quản lý lịch đặt sân</a>
+        <a href="{% url 'admin_user:doanhthu' %}">Thống kê doanh thu</a>
+    </div>
+    <a class="login-button" href="#">Đăng nhập</a>
+</div>
+{% endblock navbar %}
+
+{% block main-content %}
+<body>
+<div class="container">
+            <h2>DANH SÁCH CÁC SÂN</h2>
+            <div class="table-container">
+                <table id="fieldTable">
+                    <tr>
+                        <th>Tên sân</th>
+                        <th>Tình trạng</th>
+                        <th>Tình trạng thanh toán</th>
+                        <th>Hành động</th>
+                    </tr>
+                    <tr>
+                        <td>Sân 1</td>
+                        <td>Trống</td>
+                        <td onclick="openModal(this)">Chưa thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>                        
+                    </tr>
+                    <tr>
+                        <td>Sân 2</td>
+                        <td>Đã đặt</td>
+                        <td onclick="openModal(this)">Đã thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 3</td>
+                        <td>Trống</td>
+                        <td onclick="openModal(this)">Chưa thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 4</td>
+                        <td>Đã đặt</td>
+                        <td onclick="openModal(this)">Đã thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 5</td>
+                        <td>Trống</td>
+                        <td onclick="openModal(this)">Chưa thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Sân 6</td>
+                        <td>Đã đặt</td>
+                        <td onclick="openModal(this)">Đã thanh toán</td>
+                        <td class="text-center">
+                            <button class="edit-button" onclick="openModal(this)">
+                                <i class="fas fa-edit"></i> Thay đổi
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal" id="editModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">×</span>
+                <form id="editForm" onsubmit="submitEdit(event)">
+                    <label for="status">Chọn tình trạng sân:</label>
+                    <select id="status" name="status">
+                        <option value="Trống">Trống</option>
+                        <option value="Đã đặt">Đã đặt</option>
+                    </select>
+
+                    <label for="paymentStatus">Chọn tình trạng thanh toán:</label>
+                    <select id="paymentStatus" name="paymentStatus">
+                        <option value="Chưa thanh toán">Chưa thanh toán</option>
+                        <option value="Đã thanh toán">Đã thanh toán</option>
+                    </select>
+
+                    <button type="submit">Lưu</button>
+                </form>
+            </div>
+        </div>
+
+    </body>
+{% endblock main-content %}
+    
+    
+
+        

@@ -1,0 +1,117 @@
+
+   body {
+            font-family: Arial, sans-serif;
+            background-color: lightgray;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+        .header {
+            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header nav {
+            display: flex;
+            align-items: center;
+        }
+        .header nav a {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .header .login-btn {
+            background-color: orange;
+            color: black;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: medium;
+        }
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+        .content h1 {
+            color: #ff4d4d;
+            font-size: 40px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color:  #e4bebe;
+            font-weight: bold;
+        }
+        .status-select, .input-field {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            width: 80%;
+            margin: 20px auto 0;
+        }
+        .buttons button {
+            background-color: #f0a500;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .header nav a {
+                font-size: 14px;
+                margin: 0 10px;
+            }
+            .header .login-btn {
+                padding: 5px 10px;
+            }
+            .content h1 {
+                font-size: 24px;
+            }
+            table {
+                width: 100%;
+            }
+            th, td {
+                padding: 5px;
+            }
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .buttons button {
+                padding: 5px 10px;
+                margin: 5px 0;
+            }
+        }
+        .header img{
+            /* background-image: url("/static/hoadon/pics/Logo_Bad.png"); */
+            background-size: 120px;
+            background-repeat: no-repeat;
+            width: 120px;
+            height: 65px;
+            border-radius: 10%;
+        }
