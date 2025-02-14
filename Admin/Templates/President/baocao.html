@@ -1,12 +1,14 @@
+{% extends "President/base.html" %}
+{% load static %}
+
+{% block main-content %}
 <html>
-    {%load static%}
   <head>
     <title>Feaver</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
     <style>
       body {
-        font-family: 'Roboto', sans-serif;
+        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f0f0f0;
@@ -43,25 +45,23 @@
       }
 
       .navbar a {
-        color: white;
+        color: black;
         text-decoration: none;
         margin: 0 15px;
         font-size: 16px;
-        display: inline-block;
         text-align: center;
-      }
-
-      .navbar a.active {
-        border-bottom: 2px solid white;
+        font-weight: bold;
       }
 
       .navbar .login-btn {
-        background-color: #f5a623;
-        color: white;
-        padding: 10px 20px;
+        background-color: orange;
+        color: black;
+        padding: 8px 16px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        font-weight: bold;
+        font-size: medium;
       }
 
       .content {
@@ -133,13 +133,13 @@
   <body>
     <div class="navbar">
       <div class="logo">
-        <img src="{%static 'Admin/Logo_Bad.png'%}" alt="Logo Feaver">
+        <img src="{%static 'President/Logo_Bad.png'%}" alt="Logo Feaver">
       </div>
       <nav>
-        <a href="#">Quản lý tài khoản</a>
-        <a href="#">Quản lý sân cầu lông</a>
-        <a href="#">Lịch sử thay đổi thông tin</a>
-        <a class="active" href="#">Thống kê</a>
+        <a href="{% url 'base:taikhoan' %}">Quản lý tài khoản</a>
+        <a href="{% url 'base:sancaulong' %}">Quản lý sân cầu lông</a>
+        <a href="{% url 'base:lichsu' %}">Lịch sử thay đổi thông tin</a>
+        <a class="active" href="{% url 'base:baocao' %}">Báo cáo</a>
       </nav>
       <button class="login-btn">Đăng nhập</button>
     </div>
@@ -210,3 +210,4 @@
     </script>
   </body>
 </html>
+{% endblock main-content %}

@@ -1,5 +1,8 @@
+{% extends "President/base.html" %}
+{% load static %}
+
+{% block main-content %}
 <html>
-    {%load static%}
   <head>
     <title>Quản lý sân cầu lông</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
@@ -12,7 +15,7 @@
       }
       .navbar {
         background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
-        padding: 10px;
+        padding: 10px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -26,21 +29,21 @@
         align-items: center;
       }
       .navbar .nav-links a {
-        color: white;
+        color: black;
         text-decoration: none;
         margin: 0 15px;
         font-size: 16px;
-      }
-      .navbar .nav-links a.active {
-        border-bottom: 2px solid white;
+        font-weight: bold;
       }
       .navbar .login-btn {
-        background-color: #f5a623;
-        color: white;
-        padding: 10px 20px;
+        background-color: orange;
+        color: black;
+        padding: 8px 16px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        font-weight: bold;
+        font-size: medium;
       }
       .container {
         padding: 20px;
@@ -111,12 +114,12 @@
   </head>
   <body>
     <div class="navbar">
-      <img src="{%static 'Admin/Logo_Bad.png'%}" alt="Logo Feaver">
+      <img src="{%static 'President/Logo_Bad.png'%}" alt="Logo Feaver">
       <div class="nav-links">
-        <a href="#">Quản lý tài khoản</a>
-        <a class="active" href="#">Quản lý sân cầu lông</a>
-        <a href="#">Lịch sử thay đổi thông tin</a>
-        <a href="#">Báo cáo</a>
+        <a href="{% url 'base:taikhoan' %}">Quản lý tài khoản</a>
+        <a class="active" href="{% url 'base:sancaulong' %}">Quản lý sân cầu lông</a>
+        <a href="{% url 'base:lichsu' %}">Lịch sử thay đổi thông tin</a>
+        <a href="{% url 'base:baocao' %}">Báo cáo</a>
       </div>
       <button class="login-btn">Đăng nhập</button>
     </div>
@@ -214,3 +217,4 @@
     </script>
   </body>
 </html>
+{% endblock main-content %}

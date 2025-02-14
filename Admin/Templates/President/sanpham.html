@@ -1,14 +1,15 @@
+{% extends "President/base.html" %}
+{% load static %}
+
+{% block main-content %}
 <html lang="en">
-    {%load static%}
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>SanPham</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -27,11 +28,13 @@
             font-weight: bold;
         }
         .header .login-btn {
-            background-color: #ffcc99;
-            padding: 10px 20px;
+            background-color: orange;
+            padding: 8px 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: medium;
+            font-weight: bold;
         }
         .container {
             display: flex;
@@ -40,6 +43,8 @@
             background-color: #cce0ff;
             padding: 20px;
             width: 150px;
+            height: 330px;
+            border-radius: 10px;
         }
         .sidebar a {
             display: block;
@@ -148,12 +153,14 @@
 </head>
 <body>
     <header class="header">
-        <img src="{%static 'SanPham/js/Logo_Bad.png'%}" alt="Logo Feaver">
+        <img src="{%static 'base_home/pics/Logo_Bad.png'%}" alt="Logo Feaver">
         <nav>
-            <a href="#" onclick="showProductList()">Trang chủ</a>
-            <a href="#" onclick="showProductList()">Sản phẩm</a>
-            <a href="#" onclick="showOrder()">Đơn hàng</a>
-            <a href="#" onclick="showProfile()">Trang cá nhân</a>
+            <a href="{% url 'base:main' %}">Trang chủ</a>
+            <a href="{% url 'base:timsan' %}">Tìm sân</a>
+            <a class="active" href="{% url 'base:sanpham' %}">Sản phẩm</a>
+            <a href="{% url 'base:donhang' %}">Đơn hàng</a>
+            <a href="{% url 'base:voucher' %}">Kho Voucher</a>
+            <a href="{% url 'base:trangcanhan' %}">Trang cá nhân</a>
         </nav>
         <button class="login-btn">Đăng nhập</button>
     </header>
@@ -270,19 +277,9 @@
                 <div class="price" id="intro-price"></div>
                 <button class="add-to-cart-btn" onclick="addToCart()">THÊM VÀO GIỎ HÀNG</button>
             </div>
-
-            <div class="order-section" id="order-section">
-                <h2>Đơn hàng của bạn</h2>
-                <p>Chưa có đơn hàng nào.</p>
-            </div>
-
-            <div class="profile-section" id="profile-section">
-                <h2>Trang cá nhân</h2>
-                <p>Thông tin cá nhân của bạn.</p>
-            </div>
         </main>
     </div>
-    <footer class="bg-light mt-4 p-3 text-center" style="display: flex; justify-content: space-between; align-items: center; padding: 2px;background-color: #d9d9d9;">
+    <footer class="footer" style="display: flex; justify-content: space-between; align-items: center; padding: 2px;background-color: #d9d9d9">
         <div style="text-align: center; flex: -1;">
             <p>@2024. Copyright Group_3_CNPM</p>
         </div>
@@ -324,21 +321,10 @@
             document.querySelector('.product-grid').style.display = 'grid';
             document.getElementById('order-section').style.display = 'none';
             document.getElementById('profile-section').style.display = 'none';
-        }
-
-        function showOrder() {
-            document.getElementById('product-intro').style.display = 'none';
-            document.querySelector('.product-grid').style.display = 'none';
-            document.getElementById('order-section').style.display = 'block';
-            document.getElementById('profile-section').style.display = 'none';
-        }
-
-        function showProfile() {
-            document.getElementById('product-intro').style.display = 'none';
-            document.querySelector('.product-grid').style.display = 'none';
-            document.getElementById('order-section').style.display = 'none';
-            document.getElementById('profile-section').style.display = 'block';
-        }
+        } 
     </script>
 </body>
 </html>
+{% endblock main-content %}
+
+

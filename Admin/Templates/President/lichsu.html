@@ -1,0 +1,166 @@
+{% extends "President/base.html" %}
+{% load static %}
+
+{% block main-content %}
+<html>
+ <head> 
+  <title>
+   Lịch sử thay đổi thông tin
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
+            padding: 10px 20px
+        }
+        .navbar img {
+            height: 65px;
+            border-radius: 10%;
+        }
+        .navbar #menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1; 
+        }
+        .navbar a {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .navbar .login-btn {
+            background-color: orange;
+            color: black;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: medium;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 2px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #afaaaa;
+            color: rgb(202, 69, 69);
+        }
+        .add-info {
+            color: red;
+            text-align: left;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .delete-btn {
+            color: red;
+            cursor: pointer;
+        }
+        @media (max-width: 600px) {
+            .navbar a {
+                font-size: 14px;
+                margin: 0 10px;
+            }
+            .navbar .login-btn {
+                padding: 5px;
+            }
+        }
+        .header img{
+            /* background-image: url("/static/SanPham/js/Logo_Bad.png");*/
+            background-size: 120px;
+            background-repeat: no-repeat;
+            width: 120px;
+            height: 50px;
+            
+        }
+  </style>
+ </head>
+ <body>
+  <div class="navbar">
+   <img src="{%static 'President/Logo_Bad.png'%}" alt="Logo Feaver">
+   <div id="menu">
+        <a href="{% url 'base:taikhoan' %}">Quản lý tài khoản</a>
+        <a href="{% url 'base:sancaulong' %}">Quản lý sân cầu lông</a>
+        <a class="active" href="{% url 'base:lichsu' %}">Lịch sử thay đổi thông tin</a>
+        <a href="{% url 'base:baocao' %}">Báo cáo</a>
+   </div>
+   <button class="login-btn">Đăng nhập</button>
+  </div>
+  <div class="container">
+   <table id="historyTable">
+    <thead>
+     <tr>
+      <th colspan="4">Lịch sử thay đổi <i class="fas fa-search"></i></th>
+     </tr>
+     <tr>
+      <th>Thời gian</th>
+      <th>Người thay đổi</th>
+      <th>Thao tác thực hiện</th>
+      <th>Hành động</th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>19/12/2024</td>
+      <td>Huy-code(Manager)</td>
+      <td>Thay đổi thông tin sân 2</td>
+      <td><span class="delete-btn" onclick="deleteRow(this)">Xóa</span></td>
+     </tr>
+     <tr>
+      <td>11/12/2024</td>
+      <td>Ken(Staff)</td>
+      <td>Check-in thông tin cho khách</td>
+      <td><span class="delete-btn" onclick="deleteRow(this)">Xóa</span></td>
+     </tr>
+    </tbody>
+   </table>
+   <div class="add-info" onclick="addRow()">[Thêm thông tin]</div>
+  </div>
+  <script>
+   function addRow() {
+            var table = document.getElementById("historyTable").getElementsByTagName('tbody')[0];
+            var newRow = table.insertRow();
+            
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            
+            cell1.contentEditable = "true";
+            cell2.contentEditable = "true";
+            cell3.contentEditable = "true";
+            
+            cell1.innerHTML = "";
+            cell2.innerHTML = "";
+            cell3.innerHTML = "";
+            cell4.innerHTML = '<span class="delete-btn" onclick="deleteRow(this)">Xóa</span>';
+        }
+
+        function deleteRow(r) {
+            var i = r.parentNode.parentNode.rowIndex;
+            document.getElementById("historyTable").deleteRow(i);
+        }
+  </script>
+ </body>
+</html>
+{% endblock main-content %}
