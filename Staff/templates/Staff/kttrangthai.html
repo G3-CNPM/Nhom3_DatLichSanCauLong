@@ -1,0 +1,372 @@
+{% extends "Staff/base.html" %}
+{% load static %}
+
+{% block main-content %}
+<html>
+ <head>
+  <title>
+   Tình trạng sân
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-color: lightgray;
+            margin: 0;
+            padding: 0;
+            color: #000;
+        }
+        .header {
+            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .header nav {
+            display: flex;
+            align-items: center;
+        }
+        .header nav a {
+            color: black;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .header .login-btn {
+            background-color: orange;
+            color: black;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: medium;
+        }
+        .content {
+            text-align: center;
+            padding: 20px;
+        }
+        .content h1 {
+            color: #ff4d4d;
+            font-size: 40px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color:  #e4bebe;
+            font-weight: bold;
+        }
+        .status-select, .input-field {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            width: 80%;
+            margin: 20px auto 0;
+        }
+        .buttons button {
+            background-color: #f0a500;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .header nav a {
+                font-size: 14px;
+                margin: 0 10px;
+            }
+            .header .login-btn {
+                padding: 5px 10px;
+            }
+            .content h1 {
+                font-size: 24px;
+            }
+            table {
+                width: 100%;
+            }
+            th, td {
+                padding: 5px;
+            }
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .buttons button {
+                padding: 5px 10px;
+                margin: 5px 0;
+            }
+        }
+        .header img{
+            /* background-image: url("/static/hoadon/pics/Logo_Bad.png"); */
+            background-size: 120px;
+            background-repeat: no-repeat;
+            width: 120px;
+            height: 65px;
+            border-radius: 10%;
+        }
+  </style>
+ </head>
+ <body>
+  <div class="header">
+    <img src="{%static 'Staff/Logo_Bad.png'%}" alt="Logo Feaver">
+   <nav>
+    <a href="#">
+        <a href="{%url 'base:checkin'%}"> Check-in  </a>
+    </a>
+    <a class="active" href="#">
+        <a href="{%url 'base:kttrangthai'%}">Trạng thái </a>
+    </a>
+    <a href="#">
+        <a href="{%url 'base:hotro'%}">Hỗ trợ </a>
+    </a>
+   </nav>
+   <button class="login-btn">
+    Đăng nhập
+   </button>
+  </div>
+  <div class="content">
+   <h1>
+    Tình trạng sân
+   </h1>
+   <table>
+    <thead>
+     <tr>
+      <th>
+       Sân
+      </th>
+      <th>
+       Trạng thái
+      </th>
+      <th>
+       Tên khách đặt sân
+      </th>
+      <th>
+       Thời gian bắt đầu
+      </th>
+      <th>
+       Thời gian kết thúc
+      </th>
+     </tr>
+    </thead>
+    <tbody>
+     <tr>
+      <td>
+       Sân 1
+      </td>
+      <td>
+       <select class="status-select">
+        <option>
+         Đã đặt
+        </option>
+        <option>
+         Còn trống
+        </option>
+        <option>
+         Sửa chữa
+        </option>
+       </select>
+      </td>
+      <td>
+       <input class="input-field" type="text"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Sân 2
+      </td>
+      <td>
+       <select class="status-select">
+        <option>
+         Đã đặt
+        </option>
+        <option>
+         Còn trống
+        </option>
+        <option>
+         Sửa chữa
+        </option>
+       </select>
+      </td>
+      <td>
+       <input class="input-field" type="text"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Sân 3
+      </td>
+      <td>
+       <select class="status-select">
+        <option>
+         Đã đặt
+        </option>
+        <option>
+         Còn trống
+        </option>
+        <option>
+         Sửa chữa
+        </option>
+       </select>
+      </td>
+      <td>
+       <input class="input-field" type="text"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Sân 4
+      </td>
+      <td>
+       <select class="status-select">
+        <option>
+         Đã đặt
+        </option>
+        <option>
+         Còn trống
+        </option>
+        <option>
+         Sửa chữa
+        </option>
+       </select>
+      </td>
+      <td>
+       <input class="input-field" type="text"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Sân 5
+      </td>
+      <td>
+       <select class="status-select">
+        <option>
+         Đã đặt
+        </option>
+        <option>
+         Còn trống
+        </option>
+        <option>
+         Sửa chữa
+        </option>
+       </select>
+      </td>
+      <td>
+       <input class="input-field" type="text"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Sân 6
+      </td>
+      <td>
+       <select class="status-select">
+        <option>
+         Đã đặt
+        </option>
+        <option>
+         Còn trống
+        </option>
+        <option>
+         Sửa chữa
+        </option>
+       </select>
+      </td>
+      <td>
+       <input class="input-field" type="text"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+     </tr>
+     <tr>
+      <td>
+       Sân 7
+      </td>
+      <td>
+       <select class="status-select">
+        <option>
+         Đã đặt
+        </option>
+        <option>
+         Còn trống
+        </option>
+        <option>
+         Sửa chữa
+        </option>
+       </select>
+      </td>
+      <td>
+       <input class="input-field" type="text"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+      <td>
+       <input class="input-field" type="time"/>
+      </td>
+     </tr>
+    </tbody>
+   </table>
+   <div class="buttons">
+    <button>
+        Lưu
+    </button>
+  </div>
+  </div>
+ </body>
+</html>
+{% endblock main-content %}
