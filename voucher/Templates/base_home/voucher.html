@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+{% extends "base_home/base.html" %}
+{% load static %}
+
+{% block main-content %}
 <html lang="vi">
-{%load static%}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kho Voucher</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
@@ -15,34 +16,40 @@
         }
         header {
             background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
-            padding: 15px;
-            padding: 15px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: white;
         }
         header img {
-            height: 80px;
+            height: 65px;
+            width: 120px;
             border-radius: 10%;
         }
         header nav a {
-            color: white;
+            color: black;
             margin: 0 15px;
             text-decoration: none;
+            font-weight: bold;
         }
-        header nav a:hover {
-            text-decoration: underline;
-        }
+    
         header .user {
-            background-color: #fbd38d;
-            padding: 8px 12px;
+            background-color: orange;
+            padding: 8px 16px;
             border-radius: 5px;
             color: black;
+            font-size: medium;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
         }
         .container {
             display: flex;
             margin-top: 20px;
+            padding: 0;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center;  
         }
         aside {
             width: 25%;
@@ -151,37 +158,29 @@
         }
         .logo {
             background-image: url("/static/voucher/Logo_Bad.png");
-            background-size: 150px;
+            background-size: 120px;
             background-repeat: no-repeat;
-            width: 150px;
-            height: 80px;
+            width: 120px;
+            height: 65px;
             border-radius: 10%;
         }
     </style>
-     <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const loginButton = document.querySelector(".user");
-            loginButton.addEventListener("click", function () {
-                const username = prompt("Vui lòng nhập tên người dùng:");
-                if (username) {
-                    loginButton.textContent = username;
-                }
-            });
-
             const voucherInputButton = document.querySelector(".voucher-input button");
             const voucherList = document.querySelector(".voucher-container");
-
+    
             voucherInputButton.addEventListener("click", function () {
                 const inputField = document.querySelector(".voucher-input input");
                 const voucherCode = inputField.value.trim();
-
+    
                 if (voucherCode) {
                     const expiryDate = prompt("Vui lòng nhập ngày hết hạn (YYYY-MM-DD):");
                     const expiryTimestamp = new Date(expiryDate).getTime();
                     if (!isNaN(expiryTimestamp)) {
                         const voucherItem = document.createElement("div");
                         voucherItem.classList.add("voucher-item");
-
+    
                         voucherItem.dataset.expiry = expiryTimestamp;
                         voucherItem.innerHTML = `
                             <div class="flex">
@@ -194,11 +193,11 @@
                             </div>
                             <button class="voucher-button apply-red">Xóa</button>
                         `;
-
+    
                         voucherItem.querySelector(".voucher-button").addEventListener("click", function () {
                             voucherItem.remove();
                         });
-
+    
                         voucherList.appendChild(voucherItem);
                         inputField.value = "";
                     } else {
@@ -206,7 +205,7 @@
                     }
                 }
             });
-
+    
             setInterval(function () {
                 const currentTimestamp = Date.now();
                 document.querySelectorAll(".voucher-item").forEach(function (voucherItem) {
@@ -217,29 +216,24 @@
                 });
             }, 60000); // Kiểm tra mỗi phút
         });
-    </script>
+    </script>    
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="{%static 'voucher/pics/Logo_Bad.png'%}" alt="Logo">
-            
+            <img src="{%static 'base_home/pics/Logo_Bad.png'%}" alt="Logo">
         </div>
         <nav>
-            <a href="#">Trang chủ</a>
-            <a href="#">Sản phẩm</a>
-            <a href="#" class="underline">Đơn hàng</a>
-            <a href="#">Trang cá nhân</a>
+            <a href="{% url 'base:main' %}">Trang chủ</a>
+            <a href="{% url 'base:timsan' %}">Tìm sân</a>
+            <a href="{% url 'base:sanpham' %}">Sản phẩm</a>
+            <a href="{% url 'base:donhang' %}">Đơn hàng</a>            
+            <a class="active" href="{% url 'base:voucher' %}">Kho Voucher</a>
+            <a href="{% url 'base:trangcanhan' %}">Trang cá nhân</a>
         </nav>
-        <div class="user">Đăng nhập</div>
+        <button class="user">Đăng nhập</button>
     </header>
     <div class="container">
-        <aside>
-            <ul>
-                <li><i class="fas fa-ticket-alt" style="color: #e53e3e;"></i><a href="#">Voucher</a></li>
-                <li><i class="fas fa-shopping-cart"></i><a href="#">Đơn hàng</a></li>
-            </ul>
-        </aside>
         <main>
             <div class="voucher-container">
                 <h2>Kho voucher</h2>
@@ -305,7 +299,7 @@
             </div>
         </main>
     </div>
-    <footer class="bg-light mt-4 p-3 text-center" style="display: flex; justify-content: space-between; align-items: center; padding: 2px; background-color: #d9d9d9; color: rgb(0, 0, 0);">
+    <footer class="footer" style="display: flex; justify-content: space-between; align-items: center; padding: 2px; background-color: #d9d9d9; color: rgb(0, 0, 0);">
       <div style="text-align: center; flex: -1;">   
           <p>@2024. Copyright Group_3_CNPM</p>
       </div>
@@ -318,3 +312,7 @@
   </footer>
 </body>
 </html>
+{% endblock main-content %}
+
+
+
