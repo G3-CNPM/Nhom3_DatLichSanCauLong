@@ -1,0 +1,148 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'hq/css/hotro.css' %}">
+{% endblock css %}
+
+{% block title %}
+  <title>
+   Hỗ trợ
+  </title>
+{% endblock title %}
+{% block main-content %}
+
+ <body>
+  <div class="navbar">
+    <img src="{%static 'hq/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+   <div class="nav-links">
+    <a href="{%url 'admin_user:checkin'%}"> Check-in  </a>
+    </a>
+    <a href="#">
+        <a href="{%url 'admin_user:kttrangthai'%}">Trạng thái </a>
+    </a>
+    <a class="active" href="#">
+        <a href="{%url 'admin_user:hotro'%}">Hỗ trợ </a>
+    </a>
+   </div>
+   <button class="login-button">
+    Đăng nhập
+   </button>
+  </div>
+  <div class="content">
+   <table>
+    <tr>
+     <th>
+      Sân
+     </th>
+     <th>
+      Ghi chú 
+     </th>
+     <th>
+      Xác nhận thanh toán
+     </th>
+     <th>
+      Xóa
+     </th>
+    </tr>
+   </table>
+   <button class="add-request-button" id="addRequestBtn">
+    Thêm yêu cầu
+   </button>
+  </div>
+  <div class="modal" id="addRequestModal">
+   <div class="modal-content">
+    <span class="close">
+     ×
+    </span>
+    <h2>
+     Thêm yêu cầu mới
+    </h2>
+    <form id="addRequestForm">
+     <label for="san">
+      Sân:
+     </label>
+     <input id="san" name="san" required="" type="text"/>
+     <label for="ghichu">
+      Ghi chú :
+     </label>
+     <input id="ghichu" name="ghichu" required="" type="text"/>
+     <label for="sotien">
+      Số tiền (VNĐ):
+     </label>
+     <input id="sotien" name="sotien" required="" type="number"/>
+     <button type="submit">
+      Thêm
+     </button>
+    </form>
+   </div>
+  </div>
+  <div class="alert" id="alert">
+   Xác nhận thành công!
+  </div>
+
+ </body>
+{% endblock main-content %}
+
+{% block js %}
+  <script>
+   var modal = document.getElementById("addRequestModal");
+        var btn = document.getElementById("addRequestBtn");
+        var span = document.getElementsByClassName("close")[0];
+        var alertBox = document.getElementById("alert");
+
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        document.getElementById("addRequestForm").onsubmit = function(event) {
+            event.preventDefault();
+            var san = document.getElementById("san").value;
+            var ghichu = document.getElementById("ghichu").value;
+            var sotien = document.getElementById("sotien").value;
+
+            var formattedSotien = new Intl.NumberFormat('vi-VN').format(sotien);
+
+            var table = document.querySelector("table");
+            var newRow = table.insertRow();
+            var cell1 = newRow.insertCell(0);
+            var cell2 = newRow.insertCell(1);
+            var cell3 = newRow.insertCell(2);
+            var cell4 = newRow.insertCell(3);
+            cell1.innerHTML = san;
+            cell2.innerHTML = ghichu;
+            cell3.innerHTML = formattedSotien + ' VNĐ <button class="complete-button" onclick="confirmPayment(this)">Xác nhận</button>';
+            cell4.innerHTML = '<button class="delete-button" onclick="removeRow(this)">Xóa</button>';
+
+            modal.style.display = "none";
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function confirmPayment(button) {
+            var cell = button.parentNode;
+            cell.innerHTML = cell.innerHTML.split(' ')[0] + ' VNĐ - Đã xác nhận';
+            showAlert();
+        }
+
+        function showAlert() {
+            alertBox.style.display = "block";
+            setTimeout(function() {
+                alertBox.style.display = "none";
+            }, 2000);
+        }
+  </script>
+{% endblock js %}

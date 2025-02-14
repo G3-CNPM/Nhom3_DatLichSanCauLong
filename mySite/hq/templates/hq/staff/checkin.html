@@ -1,0 +1,58 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'hq/css/checkin.css' %}">
+{% endblock css %}
+
+{% block title %}
+  <title>
+   Check-in
+  </title>
+{% endblock title %}
+
+{% block main-content %}
+ <body>
+  <div class="navbar">
+    <img src="{%static 'hq/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+   <div class="nav-links">
+    <a class="active" href="#">
+        <a href="{%url 'admin_user:checkin'%}"> Check-in  </a>
+    </a>
+    <a href="#">
+        <a href="{%url 'admin_user:kttrangthai'%}">Trạng thái </a>
+    </a>
+    <a href="#">
+        <a href="{%url 'admin_user:hotro'%}">Hỗ trợ </a>
+    </a>
+   </div>
+   <button class="login-btn">
+    Đăng nhập
+   </button>
+  </div>
+  <div class="container">
+   <div class="checkin-box">
+    <h2>
+     Kiểm tra thông tin check in
+    </h2>
+    <div class="form-group">
+     <label for="invoice-code">
+      Mã hóa đơn:
+     </label>
+     <input id="invoice-code" type="text"/>
+    </div>
+    <div class="form-group">
+     <label for="phone-number">
+      SĐT:
+     </label>
+     <input id="phone-number" type="text"/>
+    </div>
+     <button>
+     
+    <a href="{%url 'admin_user:hoadon'%}">Kiểm tra </a>
+     </button>
+   </div>
+  </div>
+ </body>
+</html>
+{% endblock main-content %}

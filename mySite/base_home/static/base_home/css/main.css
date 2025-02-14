@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.header {
+    background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.header img {
+    height: 50px;
+}
+.header nav {
+    display: flex;
+    align-items: center;
+}
+.header nav a {
+    color: rgb(244, 237, 237);
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 16px;
+}
+.header nav a.active {
+    border-bottom: 2px solid white;
+}
+.header .login-btn {
+    background-color: #d9a679;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.main-content {
+    text-align: center;
+    padding: 20px;
+}
+.main-content img {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 10px;
+}
+.main-content .text-overlay {
+    position: relative;
+    top: -150px;
+    color: rgb(255, 255, 255);
+    font-size: 24px;
+    font-weight: bold;
+}
+.search-section {
+    background-color: #8ac4d0;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 600px;
+    text-align: center;
+    margin-top: -100px;
+}
+.search-section h2 {
+    background-color: #a67c52;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+.search-section label {
+    display: block;
+    margin: 10px 0 5px;
+}
+.search-section select {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+.search-section button {
+    background-color: #5a9aa8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 100%;
+}
+.search-section button:hover {
+    background-color: #a67c52;
+}
+.footer {
+    background-color: #f0f0f0;
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+.footer p {
+    margin: 5px 0;
+}
+.header img{
+        background-size: 120px;
+        background-repeat: no-repeat;
+        width: 120px;
+        height: 65px;
+        border-radius: 10%;
+    }

@@ -1,0 +1,506 @@
+{% extends "base_home/base.html" %}
+{% load static %}
+
+{% block main-content %}
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; 
+            margin: 0;
+        }
+
+        .container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h5 {
+            font-weight: bold;
+        }
+
+        .card img {
+            height: 150px;
+            object-fit: cover;
+        }
+
+        #logo {
+            background-image: url("/static/base_home/pics/Logo_Bad.png");
+            background-size: 120px;
+            background-repeat: no-repeat;
+            width: 120px;
+            height: 65px;
+            border-radius: 10%;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .court-info {
+            color: black;
+            font-weight: bold;
+        }
+
+        .header .login-btn {
+            background-color: orange;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: medium;
+            font-weight: bold;
+        }
+
+        .header {
+            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161), #13a1b1);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+       .header nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        .court-card {
+            margin-bottom: 20px;
+        }
+
+        .court-card .card {
+            text-align: center;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #d9d9d9; 
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        .btn-warning {
+            background-color:rgb(143, 197, 17);
+            color: white;
+        }
+
+        .btn-success {
+            background-color:rgb(59, 22, 63);
+            color: white;
+        }
+
+        .btn {
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .qr-code-img {
+            width: 270px;
+            height: auto; 
+        }
+    </style>
+    <script>
+        function toggleFields() {
+            const selectedType = document.getElementById('chonLich').value;
+            document.querySelectorAll('.schedule-fields').forEach(field => {
+                field.classList.add('hidden');
+            });
+            if (selectedType) {
+                document.getElementById(selectedType).classList.remove('hidden');
+            }
+        }
+
+        function filterCourts() {
+            const selectedCourt = document.getElementById('chonSan').value;
+            const cards = document.querySelectorAll('.court-card');
+
+            cards.forEach(card => {
+                if (selectedCourt === "" || card.dataset.court === selectedCourt) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function validateTime(startTime, endTime) {
+            return startTime < endTime;
+        }
+
+        function placeOrder() {
+            const selectedCourt = document.getElementById('chonSan').value;
+            const selectedScheduleType = document.getElementById('chonLich').value;
+            let isValid = true;
+
+            if (!selectedCourt) {
+                alert("Vui lòng chọn sân.");
+                isValid = false;
+            }
+
+            if (selectedScheduleType === "fixedSchedule") {
+                const fixedDay = document.getElementById('fixedDay'). value;
+                const fixedStartTime = document.getElementById('fixedStartTime').value;
+                const fixedEndTime = document.getElementById('fixedEndTime').value;
+                const fixedDuration = document.getElementById('fixedDuration').value;
+
+                if (!fixedDay || !fixedStartTime || !fixedEndTime || !fixedDuration) {
+                    alert("Vui lòng chọn đầy đủ thông tin cho lịch cố định.");
+                    isValid = false;
+                } else if (!validateTime(fixedStartTime, fixedEndTime)) {
+                    alert("Giờ kết thúc phải lớn hơn giờ bắt đầu.");
+                    isValid = false;
+                }
+            } else if (selectedScheduleType === "singleDaySchedule") {
+                const singleDayDate = document.getElementById('singleDayDate').value;
+                const singleDayStartTime = document.getElementById('singleDayStartTime').value;
+                const singleDayEndTime = document.getElementById('singleDayEndTime').value;
+
+                if (!singleDayDate || !singleDayStartTime || !singleDayEndTime) {
+                    alert("Vui lòng chọn đầy đủ thông tin cho đặt lịch ngày.");
+                    isValid = false;
+                } else if (!validateTime(singleDayStartTime, singleDayEndTime)) {
+                    alert("Giờ kết thúc phải lớn hơn giờ bắt đầu.");
+                    isValid = false;
+                }
+            } else if (selectedScheduleType === "flexibleSchedule") {
+                const flexibleHours = document.getElementById('flexibleHours').value;
+                const flexibleStartTime = document.getElementById('flexibleStartTime').value;
+                const flexibleEndTime = document.getElementById('flexibleEndTime').value;
+                if (!flexibleHours || flexibleHours <= 0) {
+                    alert("Vui lòng nhập số giờ hợp lệ cho lịch linh hoạt.");
+                    isValid = false;
+                } else if (!flexibleStartTime || !flexibleEndTime) {
+                    alert("Vui lòng chọn giờ bắt đầu và giờ kết thúc.");
+                    isValid = false;
+                } else if (!validateTime(flexibleStartTime, flexibleEndTime)) {
+                    alert("Giờ kết thúc phải lớn hơn giờ bắt đầu.");
+                    isValid = false;
+                }
+            }
+
+            if (isValid) {
+                alert("Đặt lịch thành công!");
+            }
+        }
+
+        function showQRCode() {
+            document.getElementById('qr-code').style.display = 'block';
+            alert("Vui lòng quét mã QR để hoàn tất thanh toán.");
+        }
+
+        function formatCurrency(input) {
+            let value = input.value;
+            value = value.replace(/[^0-9]/g, '');
+            if (value) {
+                value = parseInt(value).toLocaleString('vi-VN');
+            }
+            input.value = value;
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+            <div id="logo">
+            </div>
+            <div>
+                <nav>
+                    <a href="{% url 'base:main' %}" class="court-info me-3">Trang chủ</a>
+                    <a class="active" href="{% url 'base:timsan' %}" class="court-info me-3">Tìm sân</a>
+                    <a href="{% url 'base:sanpham' %}" class="court-info me-3">Sản phẩm</a>
+                    <a href="{% url 'base:donhang' %}" class="court-info me-3">Đơn hàng</a>
+                    <a href="{% url 'base:voucher' %}" class="court-info me-3">Kho voucher</a>
+                    <a href="{% url 'base:trangcanhan' %}" class="court-info me-3">Trang cá nhân</a>
+                </nav>
+            </div>    
+            <button class="login-btn">Đăng nhập</button>      
+        </div>
+    </header>
+    
+
+    <main class="container mt-3">
+        <div class="row">
+            <aside class="col-md-3">
+                <div class="p-3 border bg-light">
+                    <h5 class="text-center court-info">TÌM SÂN</h5>
+                    <label for="chonSan">Chọn sân:</label>
+                    <select id="chonSan" class="form-select mb-3" onchange="filterCourts()">
+                        <option value="" disabled selected>-- Chọn sân --</option>
+                        <option value="court1">Sân 1</option>
+                        <option value="court2">Sân 2</option>
+                        <option value="court3">Sân 3</option>
+                        <option value="court4">Sân 4</option>
+                        <option value="court5">Sân 5</option>
+                        <option value="court6">Sân 6</option>
+                    </select>
+                    <label for="chonLich">Chọn loại lịch:</label>
+                    <select id="chonLich" class="form-select mb-3" onchange="toggleFields()">
+                        <option value="">Chọn loại lịch</option>
+                        <option value="fixedSchedule">Lịch cố định</option>
+                        <option value="singleDaySchedule">Đặt lịch ngày</option>
+                        <option value="flexibleSchedule">Lịch linh hoạt</option>
+                    </select>
+
+                    <div id="fixedSchedule" class="schedule-fields hidden">
+                        <label for="fixedDay">Chọn thứ trong tuần:</label>
+                        <select id="fixedDay" class="form-select mb-3">
+                            <option value="" disabled selected>-- Chọn thứ --</option>
+                            <option>Thứ 2</option>
+                            <option>Thứ 3</option>
+                            <option>Thứ 4</option>
+                            <option>Thứ 5</option>
+                            <option>Thứ 6</option>
+                            <option>Thứ 7</option>
+                            <option>Chủ nhật</option>
+                        </select>
+                        <label for="fixedStartTime">Chọn giờ bắt đầu:</label>
+                        <select id="fixedStartTime" class="form-select mb-3">
+                            <option>Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
+
+                        <label for="fixedEndTime">Chọn giờ kết thúc:</label>
+                        <select id="fixedEndTime" class="form-select mb-3">
+                            <option>Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
+
+                        <label for="fixedDuration">Thời gian đặt (tháng):</label>
+                        <input type="number" id="fixedDuration" class="form-control mb-3" placeholder="Số tháng" min="1">
+                    </div>
+
+                    <div id="singleDaySchedule" class="schedule-fields hidden">
+                        <label for="singleDayDate">Chọn ngày:</label>
+                        <input type="date" id="singleDayDate" class="form-control mb-3">
+                        <label for="singleDayStartTime">Chọn giờ bắt đầu:</label>
+                        <select id="singleDayStartTime" class="form-select mb-3">
+                            <option>Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
+                        <label for="singleDayEndTime">Chọn giờ kết thúc:</label>
+                        <select id="singleDayEndTime" class="form-select mb-3">
+                            <option >Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
+                    </div>
+
+                    <div id="flexibleSchedule" class="schedule-fields hidden">
+                        <label for="flexibleHours">Tổng số giờ chơi trong tháng:</label>
+                        <input type="number" id="flexibleHours" class="form-control mb-3" placeholder="Số giờ" min="1">
+                
+                        <label for="flexibleStartTime">Chọn giờ bắt đầu:</label>
+                        <select id="flexibleStartTime" class="form-select mb-3">
+                            <option>Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
+                        
+                        <label for="flexibleEndTime">Chọn giờ kết thúc:</label>
+                        <select id="flexibleEndTime" class="form-select mb-3">
+                            <option>Chọn giờ</option>
+                            <option>08:00</option>
+                            <option>09:00</option>
+                            <option>10:00</option>
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                            <option>21:00</option>
+                            <option>22:00</option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-warning w-100" onclick="placeOrder()">Đặt lịch</button>
+
+                    <h5 class="text-center mt-4 court-info">THANH TOÁN TRỰC TUYẾN</h5>
+                    <button class="btn btn-success w-100" onclick="showQRCode()">Thanh toán</button>
+                    <div id="qr-code" class="mt-3 hidden">
+                        <img src="https://media.discordapp.net/attachments/1314229996604096582/1321886174511501322/IMG_20241226_122246.jpg?ex=6778186f&is=6776c6ef&hm=5b3f15bc175306b984693a5bb0948c6efcad7bbf232cd2a829fd46794e6c0c33&=&format=webp&width=697&height=662" alt="QR code" class="qr-code-img mx-auto">
+                    </div>
+                </div>
+            </aside>
+
+            <section class="col-md-9">
+                <div class="row">
+                    <div class="col-md-4 mb-4 court-card" data-court="court1">
+                        <div class="card">
+                            <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 1">
+                            <div class="card-body text-center">
+                                <h6 class="court-name court-info">Sân 1</h6>
+                                <p>Giá sân 1 tiếng: 100k</p>
+                                <p>Số lượng đặt sân : 2 tỷ</p>
+                                <p>Tình trạng: <span class="text-success">Còn trống</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 court-card" data-court="court2">
+                        <div class="card">
+                            <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 2">
+                            <div class="card-body text-center">
+                                <h6 class="court-name court-info">Sân 2</h6>
+                                <p>Giá sân 1 tiếng: 100k</p>
+                                <p>Số lượng đặt sân: 2 tỷ</p>
+                                <p>Tình trạng: <span class="text-danger">Đã đặt</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 court-card" data-court="court3">
+                        <div class="card">
+                            <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 3">
+                            <div class="card-body text-center">
+                                <h6 class="court-name court-info">Sân 3</h6>
+                                <p>Giá sân 1 tiếng: 100k</p>
+                                <p>Số lượng đặt sân: 2 tỷ</p>
+                                <p>Tình trạng: <span class="text-success">Còn trống</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 court-card" data-court="court4">
+                        <div class="card">
+                            <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 4">
+                            <div class="card-body text-center">
+                                <h6 class="court-name court-info">Sân 4</h6>
+                                <p>Giá sân 1 tiếng: 100k</p>
+                                <p>Số lượng đặt sân: 2 tỷ</p>
+                                <p>Tình trạng: <span class="text-danger">Đã đặt</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 court-card" data-court="court5">
+                        <div class="card">
+                            <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 5">
+                            <div class="card-body text-center">
+                                <h6 class="court-name court-info">Sân 5</h6>
+                                <p>Giá sân 1 tiếng: 100k</p>
+                                <p>Số lượng đặt sân: 2 tỷ</p>
+                                <p>Tình trạng: <span class="text-success">Còn trống</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4 court-card" data-court="court6">
+                        <div class="card">
+                            <img src="https://sanxuatden.vn/wp-content/uploads/2021/02/sancaulong1.jpg" class="card-img-top" alt="Sân 6">
+                            <div class="card-body text-center">
+                                <h6 class="court-name court-info">Sân 6</h6>
+                                <p>Giá sân 1 tiếng: 100k</p>
+                                <p>Số lượng đặt sân: 2 tỷ</p>
+                                <p>Tình trạng: <span class="text-danger">Đã đặt</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer mt-4 p-3 text-center">
+        <div style="text-align: center; flex: -1;">
+            <p>@2024. Copyright Group_3_CNPM</p>
+        </div>
+        <div style="text-align: center; flex: -1;">
+            <p>Thông tin liên hệ: <br>
+               SĐT: 0796652231 <br>
+               Email: khangtm2739@dtu.edu.vn
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
+{% endblock main-content %}

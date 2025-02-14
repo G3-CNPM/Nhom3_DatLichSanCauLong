@@ -1,0 +1,206 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static "hq/css/datsan.css" %}">
+{% endblock css %}
+
+{% block js %}
+{{block.super}}
+<script>
+function addSchedule() {
+    var type = document.getElementById('type').value;
+    var timeSlot = document.getElementById('time-slot').value;
+    var price = document.getElementById('price').value;
+
+    if (type && timeSlot && price) {
+        var table = document.getElementById('schedule-table');
+        var newRow = table.insertRow();
+
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+        var cell4 = newRow.insertCell(3);
+
+        cell1.innerHTML = type;
+        cell2.innerHTML = timeSlot;
+        cell3.innerHTML = price;
+        cell4.innerHTML = '<button class="delete-button" onclick="deleteRow(this)">Xóa</button>';
+
+        document.getElementById('type').value = '';
+        document.getElementById('time-slot').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('new-schedule-form').style.display = 'none';
+    } else {
+        alert('Vui lòng điền đầy đủ thông tin.');
+    }
+}
+
+function deleteRow(button) {
+    var row = button.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+</script>
+{% endblock js %}
+
+{% block navbar %}
+<div class="header">
+    <img alt="Logo" src="{%static 'hq/pics/Logo_Bad.png'%}"/>
+      <div class="menu">
+    <a href="{%url 'admin_user:qls'%}">
+     Quản lý sân
+    </a>
+    <a href="{%url 'admin_user:thanhtoan'%}">
+     Quản lý tài khoản thanh toán
+    </a>
+    <a class="active" href="{%url 'admin_user:datsan'%}">
+     Quản lý lịch đặt sân
+    </a>
+    <a href="{%url 'admin_user:doanhthu'%}">
+     Thống kê doanh thu
+    </a>
+   </div>
+ <a class="login-button" href="#">
+     Đăng nhập
+    </a>
+   </div>
+{% endblock navbar %}
+
+{% block main-content %}
+<body>
+    <div class="container" id="account-management-content">
+     <h2 class="table-title">
+      Các loại hình đặt lịch
+     </h2>
+     <div class="table-container">
+      <table id="schedule-table">
+       <tr>
+        <th>
+         Loại hình
+        </th>
+        <th>
+         Khung giờ
+        </th>
+        <th>
+         Giá tiền (VND)
+        </th>
+        <th>
+         Hành động
+        </th>
+       </tr>
+       <tr>
+        <td>
+         Theo giờ
+        </td>
+        <td>
+         08:00 - 10:00
+        </td>
+        <td>
+         3 tỷ
+        </td>
+        <td>
+         <button class="delete-button" onclick="deleteRow(this)">
+          Xóa
+         </button>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Theo giờ
+        </td>
+        <td>
+         13:00 - 15:00
+        </td>
+        <td>
+         10 tỷ
+        </td>
+        <td>
+         <button class="delete-button" onclick="deleteRow(this)">
+          Xóa
+         </button>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Theo giờ
+        </td>
+        <td>
+         15:00 - 17:00
+        </td>
+        <td>
+         5 tỷ
+        </td>
+        <td>
+         <button class="delete-button" onclick="deleteRow(this)">
+          Xóa
+         </button>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Theo giờ
+        </td>
+        <td>
+         17:00 - 19:00
+        </td>
+        <td>
+         7 tỷ
+        </td>
+        <td>
+         <button class="delete-button" onclick="deleteRow(this)">
+          Xóa
+         </button>
+        </td>
+       </tr>
+       <tr>
+        <td>
+         Theo giờ
+        </td>
+        <td>
+         19:00 - 21:00
+        </td>
+        <td>
+         8 tỷ
+        </td>
+        <td>
+         <button class="delete-button" onclick="deleteRow(this)">
+          Xóa
+         </button>
+        </td>
+       </tr>
+      </table>
+     </div>
+     <a class="button" href="#" onclick="document.getElementById('new-schedule-form').style.display='block'">
+      [Thêm loại lịch mới]
+     </a>
+     <div class="form-container" id="new-schedule-form" style="display:none;">
+      <h3>
+       Thêm loại lịch mới
+      </h3>
+      <div class="form-group">
+       <label for="type">
+        Loại hình
+       </label>
+       <input id="type" name="type" type="text"/>
+      </div>
+      <div class="form-group">
+       <label for="time-slot">
+        Khung giờ
+       </label>
+       <input id="time-slot" name="time-slot" type="text"/>
+      </div>
+      <div class="form-group">
+       <label for="price">
+        Giá tiền (VND)
+       </label>
+       <input id="price" name="price" type="text"/>
+      </div>
+      <div class="form-group">
+       <button onclick="addSchedule()" type="button">
+        Thêm
+       </button>
+      </div>
+     </div>
+    </div>
+</body>
+{% endblock main-content %}

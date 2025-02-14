@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "Live Preview",
+			"workspacePath": "d:\\Codeprogram\\Workspace\\CNPM_03",
+			"problemMatcher": [],
+			"label": "Live Preview: Run Server"
+		}
+	]
+}

@@ -1,0 +1,115 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'hq/css/hoadon.css' %}">
+{% endblock css %}
+
+{% block title %}
+  <title>
+   Hóa đơn
+  </title>
+{% endblock title %}
+
+{% block main-content %}
+
+ <body>
+  <div class="navbar">
+   <img src="{%static 'hq/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+   <div class="nav-links">
+    <a href="#">
+        <a href="{%url 'admin_user:checkin'%}"> Check-in  </a> 
+    </a>
+    <a href="#">
+        <a href="{%url 'admin_user:kttrangthai'%}">Trạng thái </a> 
+    </a>
+    <a href="#">
+        <a href="{%url 'admin_user:hotro'%}">Hỗ trợ </a>
+    </a>
+   </div>
+   <button class="login-btn">
+    Đăng nhập
+   </button>
+  </div>
+  <div class="container">
+   <h1>
+    Hóa đơn
+   </h1>
+   <table class="table">
+    <tr>
+     <th>
+      Tên khách hàng
+     </th>
+     <td>
+      Nguyễn Văn A
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Số điện thoại
+     </th>
+     <td>
+      0123456789
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Ngày thuê
+     </th>
+     <td>
+      01/01/2023
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Vị trí sân
+     </th>
+     <td>
+      Sân A1
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Liên hệ hỗ trợ
+     </th>
+     <td>
+      0987654321
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Thời gian thuê
+     </th>
+     <td>
+      2 giờ
+     </td>
+    </tr>
+    <tr>
+     <th>
+      Giá thuê
+     </th>
+     <td>
+      500,000 VND
+     </td>
+    </tr>
+   </table>
+   <div class="button-container">
+    <button onclick="goBack()">
+     Quay lại
+    </button>
+    <button>
+     <a href="{%url 'admin_user:checkin'%}">Xác nhận </a>
+    </button>
+   </div>
+  </div>
+ </body>
+
+{% endblock main-content %}
+
+{% block js %}
+<script>
+    function goBack() {
+        window.history.back();
+    }
+  </script>
+{% endblock js %}

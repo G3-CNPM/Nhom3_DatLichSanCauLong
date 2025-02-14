@@ -1,0 +1,97 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Báo cáo</title>
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'hq/css/baocao.css' %}">
+{% endblock css %}
+
+{% block main-content %}
+  <body>
+    <div class="navbar">
+      <div class="logo">
+        <img src="{%static 'hq/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+      </div>
+      <nav>
+        <a href="{% url 'admin_user:taikhoan' %}">Quản lý tài khoản</a>
+        <a href="{% url 'admin_user:sancaulong' %}">Quản lý sân cầu lông</a>
+        <a href="{% url 'admin_user:lichsu' %}">Lịch sử thay đổi thông tin</a>
+        <a class="active" href="{% url 'admin_user:baocao' %}">Báo cáo</a>
+      </nav>
+      <button class="login-btn">Đăng nhập</button>
+    </div>
+    <div class="content">
+      <div class="filters">
+        <div>
+          <label for="time-range">Khoảng thời gian:</label>
+          <select id="time-range">
+            <option value="">Chọn khoảng thời gian</option>
+            <option value="day">Theo ngày</option>
+            <option value="month">Theo tháng</option>
+            <option value="year">Theo năm</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <button>Người dùng đang hoạt động</button>
+        </div>
+        <div class="column">
+          <button>Lịch sử đặt sân</button>
+        </div>
+        <div class="column">  
+          <button>Người dùng mới</button>
+        </div>
+      </div>
+
+      <div id="info-box" class="info-box">
+        <h3>Thông tin tự động hiển thị:</h3>
+        <div id="info-content">
+          <p><strong>Người dùng đang hoạt động:</strong> <span id="active-users-display">Thông tin sẽ hiển thị ở đây...</span></p>
+          <p><strong>Lịch sử đặt sân:</strong> <span id="booking-history-display">Thông tin sẽ hiển thị ở đây...</span></p>
+          <p><strong>Người dùng mới:</strong> <span id="new-users-display">Thông tin sẽ hiển thị ở đây...</span></p>
+        </div>
+      </div>
+    </div>
+
+    
+  </body>
+{% endblock main-content %}
+
+
+{% block js %}
+<script>
+      const timeRangeSelect = document.getElementById('time-range');
+      const infoBox = document.getElementById('info-box');
+      const activeUsersDisplay = document.getElementById('active-users-display');
+      const bookingHistoryDisplay = document.getElementById('booking-history-display');
+      const newUsersDisplay = document.getElementById('new-users-display');
+
+      timeRangeSelect.addEventListener('change', function() {
+        const selectedValue = this.value;
+
+        if (selectedValue === 'day') {
+          infoBox.style.display = 'block'; 
+          activeUsersDisplay.textContent = 'Thông tin người dùng đang hoạt động trong ngày';
+          bookingHistoryDisplay.textContent = 'Thông tin lịch sử đặt sân trong ngày';
+          newUsersDisplay.textContent = 'Thông tin người dùng mới trong ngày';
+        } else if (selectedValue === 'month') {
+          infoBox.style.display = 'block'; 
+          activeUsersDisplay.textContent = 'Thông tin người dùng đang hoạt động trong tháng';
+          bookingHistoryDisplay.textContent = 'Thông tin lịch sử đặt sân trong tháng';
+          newUsersDisplay.textContent = 'Thông tin người dùng mới trong tháng';
+        } else if (selectedValue === 'year') {
+          infoBox.style.display = 'block'; 
+          activeUsersDisplay.textContent = 'Thông tin người dùng đang hoạt động trong năm';
+          bookingHistoryDisplay.textContent = 'Thông tin lịch sử đặt sân trong năm';
+          newUsersDisplay.textContent = 'Thông tin người dùng mới trong năm';
+        } else {
+          infoBox.style.display = 'none'; 
+        }
+      });
+    </script>
+{% endblock js %}

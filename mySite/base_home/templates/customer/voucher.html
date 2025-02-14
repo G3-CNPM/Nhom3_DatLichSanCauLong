@@ -1,0 +1,319 @@
+{% extends "base_home/base.html" %}
+{% load static %}
+
+{% block main-content %}
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kho Voucher</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        header {
+            background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        header img {
+            height: 65px;
+            width: 120px;
+            border-radius: 10%;
+        }
+        header nav a {
+            color: black;
+            margin: 0 15px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    
+        header .user {
+            background-color: orange;
+            padding: 8px 16px;
+            border-radius: 5px;
+            color: black;
+            font-size: medium;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+        .container {
+            display: flex;
+            margin-top: 20px;
+            padding: 0;
+            justify-content: center; /* Căn giữa theo chiều ngang */
+            align-items: center;  
+        }
+        aside {
+            width: 25%;
+            background: white;
+            padding: 15px;
+        }
+        aside ul {
+            list-style: none;
+            padding: 0;
+        }
+        aside ul li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        aside ul li i {
+            margin-right: 10px;
+        }
+        aside ul li a {
+            text-decoration: none;
+            color: #333;
+        }
+        aside ul li a:hover {
+            color: #e53e3e;
+        }
+        main {
+            width: 75%;
+            padding: 15px;
+            background-color: #e2e8f0;
+        }
+        .voucher-container {
+            background: #edf2f7;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .voucher-container h2 {
+            margin-bottom: 20px;
+        }
+        .voucher-input {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .voucher-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #cbd5e0;
+            border-radius: 5px;
+        }
+        .voucher-input button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .voucher-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .voucher-item img {
+            height: 50px;
+            width: 50px;
+            border-radius: 5px;
+        }
+        .voucher-details {
+            margin-left: 15px;
+        }
+        .voucher-details p {
+            margin: 5px 0;
+        }
+        .voucher-button {
+            border: 1px solid;
+            border-radius: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .apply-teal {
+            color: #319795;
+            border-color: #319795;
+        }
+        .apply-teal:hover {
+            background: #319795;
+            color: white;
+        }
+        .apply-red {
+            color: #e53e3e;
+            border-color: #e53e3e;
+        }
+        .apply-red:hover {
+            background: #e53e3e;
+            color: white;
+        }
+        footer {
+            background: #4a5568;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logo {
+            background-image: url("/static/voucher/Logo_Bad.png");
+            background-size: 120px;
+            background-repeat: no-repeat;
+            width: 120px;
+            height: 65px;
+            border-radius: 10%;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const voucherInputButton = document.querySelector(".voucher-input button");
+            const voucherList = document.querySelector(".voucher-container");
+    
+            voucherInputButton.addEventListener("click", function () {
+                const inputField = document.querySelector(".voucher-input input");
+                const voucherCode = inputField.value.trim();
+    
+                if (voucherCode) {
+                    const expiryDate = prompt("Vui lòng nhập ngày hết hạn (YYYY-MM-DD):");
+                    const expiryTimestamp = new Date(expiryDate).getTime();
+                    if (!isNaN(expiryTimestamp)) {
+                        const voucherItem = document.createElement("div");
+                        voucherItem.classList.add("voucher-item");
+    
+                        voucherItem.dataset.expiry = expiryTimestamp;
+                        voucherItem.innerHTML = `
+                            <div class="flex">
+                                <img src="https://storage.googleapis.com/a1aa/image/QlTlynfSxfnnokFFXFzzvfj06xVN2Vshr7WfGvEki2gvs03PB.jpg" alt="Gift">
+                                <div class="voucher-details">
+                                    <p>Giảm giá: 150k</p>
+                                    <p>Code: ${voucherCode}</p>
+                                    <p><i class="fas fa-clock"></i> Hết hạn: ${expiryDate}</p>
+                                </div>
+                            </div>
+                            <button class="voucher-button apply-red">Xóa</button>
+                        `;
+    
+                        voucherItem.querySelector(".voucher-button").addEventListener("click", function () {
+                            voucherItem.remove();
+                        });
+    
+                        voucherList.appendChild(voucherItem);
+                        inputField.value = "";
+                    } else {
+                        alert("Ngày hết hạn không hợp lệ. Vui lòng thử lại.");
+                    }
+                }
+            });
+    
+            setInterval(function () {
+                const currentTimestamp = Date.now();
+                document.querySelectorAll(".voucher-item").forEach(function (voucherItem) {
+                    const expiryTimestamp = parseInt(voucherItem.dataset.expiry, 10);
+                    if (expiryTimestamp < currentTimestamp) {
+                        voucherItem.remove();
+                    }
+                });
+            }, 60000); // Kiểm tra mỗi phút
+        });
+    </script>    
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{%static 'base_home/pics/Logo_Bad.png'%}" alt="Logo">
+        </div>
+        <nav>
+            <a href="{% url 'base:main' %}">Trang chủ</a>
+            <a href="{% url 'base:timsan' %}">Tìm sân</a>
+            <a href="{% url 'base:sanpham' %}">Sản phẩm</a>
+            <a href="{% url 'base:donhang' %}">Đơn hàng</a>            
+            <a class="active" href="{% url 'base:voucher' %}">Kho Voucher</a>
+            <a href="{% url 'base:trangcanhan' %}">Trang cá nhân</a>
+        </nav>
+        <button class="user">Đăng nhập</button>
+    </header>
+    <div class="container">
+        <main>
+            <div class="voucher-container">
+                <h2>Kho voucher</h2>
+                <div class="voucher-input">
+                    <input type="text" placeholder="Nhập mã voucher tại đây">
+                    <button>Lưu</button>
+                </div>
+                <div class="voucher-item">
+                    <div class="flex">
+                        <img src="https://storage.googleapis.com/a1aa/image/QlTlynfSxfnnokFFXFzzvfj06xVN2Vshr7WfGvEki2gvs03PB.jpg" alt="Gift">
+                        <div class="voucher-details">
+                            <p>Giảm tối đa: 12%</p>
+                            <p>Code: SJH24UJG68K</p>
+                            <p><i class="fas fa-clock"></i> Có hiệu lực từ: 29/12/2024</p>
+                        </div>
+                    </div>
+                    <button class="voucher-button apply-teal">Áp dụng</button>
+                </div>
+                <div class="voucher-item">
+                    <div class="flex">
+                        <img src="https://storage.googleapis.com/a1aa/image/QlTlynfSxfnnokFFXFzzvfj06xVN2Vshr7WfGvEki2gvs03PB.jpg" alt="Gift">
+                        <div class="voucher-details">
+                            <p>Giảm tối đa: 25%</p>
+                            <p>Code: J97UKJNN9LK</p>
+                            <p><i class="fas fa-clock"></i> Có hiệu lực từ: 31/12/2024</p>
+                        </div>
+                    </div>
+                    <button class="voucher-button apply-teal">Áp dụng</button>
+                </div>
+                <div class="voucher-item">
+                    <div class="flex">
+                        <img src="https://storage.googleapis.com/a1aa/image/QlTlynfSxfnnokFFXFzzvfj06xVN2Vshr7WfGvEki2gvs03PB.jpg" alt="Gift">
+                        <div class="voucher-details">
+                            <p>Giảm tối đa: 50k</p>
+                            <p>Code: KGS78HSGB9L</p>
+                            <p><i class="fas fa-clock"></i> Có hiệu lực sau: 10 giờ</p>
+                        </div>
+                    </div>
+                    <button class="voucher-button apply-red">Áp dụng</button>
+                </div>
+                <div class="voucher-item">
+                    <div class="flex">
+                        <img src="https://storage.googleapis.com/a1aa/image/QlTlynfSxfnnokFFXFzzvfj06xVN2Vshr7WfGvEki2gvs03PB.jpg" alt="Gift">
+                        <div class="voucher-details">
+                            <p>Giảm tối đa: 200k</p>
+                            <p>Code: JHUBDN988HK</p>
+                            <p><i class="fas fa-clock"></i> Có hiệu lực sau: 24 giờ</p>
+                        </div>
+                    </div>
+                    <button class="voucher-button apply-red">Áp dụng</button>
+                </div>
+                <div class="voucher-item">
+                    <div class="flex">
+                        <img src="https://storage.googleapis.com/a1aa/image/QlTlynfSxfnnokFFXFzzvfj06xVN2Vshr7WfGvEki2gvs03PB.jpg" alt="Gift">
+                        <div class="voucher-details">
+                            <p>Giảm tối đa: 35k</p>
+                            <p>Code: WATER9AKFH8</p>
+                            <p><i class="fas fa-clock"></i>Có hiệu lực sau: 48 giờ</p>
+                        </div>
+                    </div>
+                    <button class="voucher-button apply-red">Áp dụng</button>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer class="footer" style="display: flex; justify-content: space-between; align-items: center; padding: 2px; background-color: #d9d9d9; color: rgb(0, 0, 0);">
+      <div style="text-align: center; flex: -1;">   
+          <p>@2024. Copyright Group_3_CNPM</p>
+      </div>
+      <div style="text-align: center; flex: -1;">
+          <p>Thông tin liên hệ: <br>
+             SĐT: 0796652231 <br>
+             Email: khangtm2739@dtu.edu.vn
+          </p>
+      </div>
+  </footer>
+</body>
+</html>
+{% endblock main-content %}
+
+
+

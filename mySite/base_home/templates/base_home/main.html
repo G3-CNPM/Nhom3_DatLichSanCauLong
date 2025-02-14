@@ -1,0 +1,91 @@
+{% extends "base_home/base.html" %}
+{% load static %}
+
+{% block base-css %}
+<link rel="stylesheet" href="{% static 'base_home/css/main.css' %}">
+{% endblock base-css %}
+
+{% block base-js %}
+<script>
+    function findCourt() {
+      var area = document.getElementById("area").value;
+      var time = document.getElementById("time").value;
+      
+      if(area && time) {
+        alert("Bạn đã chọn: " + area + " vào khung giờ " + time);
+      } else {
+        alert("Vui lòng chọn sân và khung giờ.");
+      }
+    }
+  </script>
+{% endblock base-js %}
+
+{% block navbar %}
+<header class="header">
+    <img src="{%static 'base_home/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+    <nav>
+      <a class="active" href="{% url 'base:main' %}">Trang chủ</a>
+      <a href="{% url 'base:sanpham' %}">Sản phẩm</a>
+      <a href="#">Đơn hàng</a>
+      <a href="#">Trang cá nhân</a>
+    </nav>
+    <a href="{% url 'base:login' %}">
+        <button class="login-btn">
+         ĐĂNG NHẬP
+       </button>
+      </a>
+  </header>
+
+{% endblock navbar %}
+
+{% block main-content %}
+    <main class="main-content">
+      <img alt="Badminton court" height="400" src="https://www.minhquansaigon.vn/uploads/products/2022/02/26/thi_cong_son_san_cau_long_8.jpg" width="800"/>
+      <div class="text-overlay">
+        <p>San cau long tuyet voi nhat TP Vung Tau</p>
+      </div>
+    </main>
+<br>
+<br>
+<br>
+    <section class="search-section">
+      
+      <label for="area">Chọn sân:</label>
+      <select id="area">
+        <option value="">Chọn sân</option>
+        <option value="s1">Sân 1</option>
+        <option value="s2">Sân 2</option>
+        <option value="s3">Sân 3</option>
+        <option value="s4">Sân 4</option>
+        <option value="s5">Sân 5</option>
+        <option value="s6">Sân 6</option>
+      </select>
+      
+      <label for="time">Chọn khung giờ:</label>
+      <select id="time">
+        <option value="">Chọn khung giờ</option>
+        <option value="8-10">8:00 - 10:00</option>
+        <option value="10-12">10:00 - 12:00</option>
+        <option value="12-14">12:00 - 14:00</option>
+        <option value="14-16">14:00 - 16:00</option>
+        <option value="16-18">16:00 - 18:00</option>
+        <option value="18-20">18:00 - 20:00</option>
+      </select>
+      
+      <button onclick="findCourt()">Tìm Sân</button>
+    </section>
+{% endblock main-content %}
+
+{% block footer %}
+<footer class="bg-light mt-4 p-3 text-center" style="display: flex; justify-content: space-between; align-items: center; padding: 2px;background-color: #d9d9d9;">
+    <div style="text-align: center; flex: -1;">
+        <p>@2024. Copyright Group_3_CNPM</p>
+    </div>
+    <div style="text-align: center; flex: -1;">
+        <p>Thông tin liên hệ: <br>
+           SĐT: 0796652231 <br>
+           Email: khangtm2739@dtu.edu.vn
+        </p>
+    </div>
+</footer>
+{% endblock footer %}

@@ -1,0 +1,141 @@
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'hq/css/taikhoan.css' %}">
+{% endblock css %}
+
+{% block title %}
+  <title>
+   Quản lý tài khoản
+  </title>
+{% endblock title %}
+
+{% block js %}
+<script>
+    function toggleForm() {
+        var form = document.getElementById('addAccountForm');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function addAccount() {
+        var username = document.getElementById('username').value;
+        var accountType = document.getElementById('accountType').value;
+        var status = document.getElementById('status').value;
+
+        if (username && accountType && status) {
+            var table = document.getElementById('accountTable');
+
+            var row = table.insertRow();
+            row.insertCell(0).textContent = username;
+            row.insertCell(1).textContent = accountType;
+            row.insertCell(2).textContent = status;
+            var actionsCell = row.insertCell(3);
+            actionsCell.innerHTML = '<button onclick="deleteAccount(this)">Xóa</button>';
+
+            document.getElementById('username').value = '';
+            document.getElementById('accountType').value = '';
+            document.getElementById('status').value = '';
+
+            document.getElementById('addAccountForm').style.display = 'none';
+        } else {
+            alert('Vui lòng điền đầy đủ thông tin!');
+        }
+    }
+
+    function deleteAccount(button) {
+        var row = button.closest('tr');
+        row.remove();  
+    }
+  </script>
+{% endblock js %}
+
+{% block navbar %}
+<div class="navbar">
+    <img src="{%static 'hq/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+   <div class="navbar-links">
+     <a class="active" href="{% url 'admin_user:taikhoan' %}">Quản lý tài khoản</a>
+     <a href="{% url 'admin_user:sancaulong' %}">Quản lý sân cầu lông</a>
+     <a href="{% url 'admin_user:lichsu' %}">Lịch sử thay đổi thông tin</a>
+     <a href="{% url 'admin_user:baocao' %}">Báo cáo</a>
+   </div>
+   <button class="login-btn">Đăng nhập</button>
+  </div>
+{% endblock navbar %}
+
+{% block main-content %}
+<body> 
+    <div class="content">
+     <h2>
+      DANH SÁCH TÀI KHOẢN
+     </h2>
+     <table id="accountTable">
+      <tr>
+       <th>
+        Tên người dùng
+       </th>
+       <th>
+        Loại tài khoản
+       </th>
+       <th>
+        Trạng thái
+       </th>
+       <th>
+        Thao tác
+       </th>
+      </tr>
+      <tr>
+       <td>
+        Vakypro
+       </td>
+       <td>
+        Admin
+       </td>
+       <td>
+        Đang hoạt động
+       </td>
+       <td>
+        <button onclick="deleteAccount(this)">Xóa</button>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Huy-code
+       </td>
+       <td>
+        Staff
+       </td>
+       <td>
+        Bị khóa
+       </td>
+       <td>
+       <button onclick="deleteAccount(this)">Xóa</button>
+       </td>
+      </tr>
+      <tr>
+       <td>
+        Ken
+       </td>
+       <td>
+        Manager
+       </td>
+       <td>
+        Đang hoạt động
+       </td>
+       <td>
+       <button onclick="deleteAccount(this)">Xóa</button>
+       </td>
+      </tr>
+     </table>
+     <a class="add-account" onclick="toggleForm()">[Thêm tài khoản]</a>
+  
+     <div id="addAccountForm">
+      <h3>Thêm tài khoản mới</h3>
+      <input type="text" id="username" placeholder="Tên người dùng" required />
+      <input type="text" id="accountType" placeholder="Loại tài khoản" required />
+      <input type="text" id="status" placeholder="Trạng thái" required />
+      <button onclick="addAccount()">Thêm tài khoản</button>
+     </div>
+    </div>
+</body>  
+{% endblock main-content %}

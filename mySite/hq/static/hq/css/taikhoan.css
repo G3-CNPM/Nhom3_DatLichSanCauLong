@@ -1,0 +1,116 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f8f8;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161),#13a1b1);
+    padding: 10px 20px;
+}
+.navbar img {
+    height: 65px;
+    border-radius: 10%;
+}
+.navbar h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+.navbar .navbar-links {
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+.navbar a {
+    color: black;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.navbar .login-btn {
+    margin-left: auto;
+    background-color: orange;
+    color: black;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: medium;
+    font-weight: bold;
+}
+.content {
+    padding: 20px;
+}
+.content h2 {
+    background-color: #e2c8ee;
+    padding: 10px;
+    text-align: center;
+    margin: 0;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+th {
+    background-color: #d3d3d3;
+}
+.add-account {
+    color: red;
+    margin-top: 10px;
+    display: inline-block;
+    cursor: pointer;
+}
+#addAccountForm {
+    margin-top: 20px;
+    display: none;
+}
+#addAccountForm input {
+    padding: 5px;
+    margin: 5px;
+}
+#addAccountForm button {
+    padding: 5px 10px;
+    background-color: #00bfff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+@media (max-width: 600px) {
+    .navbar h1 {
+        font-size: 18px;
+    }
+    .navbar a {
+        font-size: 14px;
+        margin: 0 10px;
+    }
+    .navbar .login-btn {
+        padding: 5px;
+        font-size: 14px;
+    }
+    .content h2 {
+        font-size: 18px;
+    }
+    th, td {
+        padding: 5px;
+        font-size: 12px;
+    }
+}
+.header img{
+    /* background-image: url("/static/SanPham/js/Logo_Bad.png");*/
+    background-size: 120px;
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 65px;
+}
