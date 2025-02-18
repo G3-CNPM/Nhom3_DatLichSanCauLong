@@ -80,7 +80,7 @@ DATABASES = {
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
         'ENGINE': 'mssql',
-        'NAME': 'login',
+        'NAME': 'Login',
         'USER': 'sa',
         'PASSWORD': 'khang2305',
         'HOST': 'localhost',

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+
 # Create your views here.
 
 def register(request):
@@ -17,7 +18,7 @@ def donhang(request):
 
 def timsan(request):
     return render(request, 'customer/timsan.html')
- 
+
 def trangcanhan(request):
     return render(request, 'customer/trangcanhan.html')
 
@@ -26,4 +27,3 @@ def voucher(request):
 
 def sanpham(request):
     return render(request, 'customer/sanpham.html')
- 
