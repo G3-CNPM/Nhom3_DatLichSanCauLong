@@ -140,39 +140,46 @@
    <button class="login-btn">Đăng nhập</button>
   </header>
   <div class="container">
-   <div class="profile-card">
-    <img alt="Profile picture" height="150" src="https://png.pngtree.com/png-vector/20190802/ourlarge/pngtree-personal-personalization-profile-user--business-flat-line-fil-png-image_1646493.jpg" width="150"/>
     
-    <div class="info">
-     Username: <span id="username-text">Username</span>
-     <i class="fas fa-pen" id="edit-username"></i>
-     <input type="text" id="edit-username-input"/>
-    </div>
-
-    <div class="info">
-     Họ và tên: <span id="fullname">.........</span>
-     <i class="fas fa-pen" id="edit-fullname"></i>
-     <input type="text" id="edit-fullname-input"/>
-    </div>
-
-    <div class="info">
-     Ngày tháng năm sinh: <span id="dob">../../....</span>
-     <i class="fas fa-pen" id="edit-dob"></i>
-     <input type="date" id="edit-dob-input"/>
-    </div>
-
-    <div class="info">
-     Email: <span id="email">.........</span>
-     <i class="fas fa-pen" id="edit-email"></i>
-     <input type="email" id="edit-email-input"/>
-    </div>
-
-    <div class="info">
-     Số điện thoại: <span id="phone">.........</span>
-     <i class="fas fa-pen" id="edit-phone"></i>
-     <input type="tel" id="edit-phone-input"/>
-    </div>
-
+    {% for item in all %}
+        {{item}}
+    {% endfor %}
+        
+    {% for item in all %}
+        
+        <div class="profile-card">
+            <img alt="Profile picture" height="150" src="https://png.pngtree.com/png-vector/20190802/ourlarge/pngtree-personal-personalization-profile-user--business-flat-line-fil-png-image_1646493.jpg" width="150"/>
+            
+            <div class="info">
+             Username: <span id="username-text">{{item.uname}}</span>
+             <i class="fas fa-pen" id="edit-username"></i>
+             <input type="text" id="edit-username-input"/>
+            </div>
+        
+            <div class="info">
+             Họ và tên: <span id="fullname">{{item.lname}} {{item.fname}}</span>
+             <i class="fas fa-pen" id="edit-fullname"></i>
+             <input type="text" id="edit-fullname-input"/>
+            </div>
+        
+            <div class="info">
+             Ngày tháng năm sinh: <span id="dob">{{item.birth}}</span>
+             <i class="fas fa-pen" id="edit-dob"></i>
+             <input type="date" id="edit-dob-input"/>
+            </div>
+        
+            <div class="info">
+             Email: <span id="email">{{item.email}}</span>
+             <i class="fas fa-pen" id="edit-email"></i>
+             <input type="email" id="edit-email-input"/>
+            </div>
+        
+            <div class="info">
+             Số điện thoại: <span id="phone">{{item.telephn}}</span>
+             <i class="fas fa-pen" id="edit-phone"></i>
+             <input type="tel" id="edit-phone-input"/>
+            </div>
+    {% endfor %}
     <button class="save-btn" id="save-btn">
      Lưu
      <i class="fas fa-save"></i>

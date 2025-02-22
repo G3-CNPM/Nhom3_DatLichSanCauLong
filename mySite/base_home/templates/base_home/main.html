@@ -26,8 +26,8 @@
     <nav>
       <a class="active" href="{% url 'base:main' %}">Trang chủ</a>
       <a href="{% url 'base:sanpham' %}">Sản phẩm</a>
-      <a href="#">Đơn hàng</a>
-      <a href="#">Trang cá nhân</a>
+      <a href="{% url 'base:donhang' %}">Đơn hàng</a>
+      <a href="{% url 'base:trangcanhan' %}">Trang cá nhân</a>
     </nav>
     <a href="{% url 'base:login' %}">
         <button class="login-btn">

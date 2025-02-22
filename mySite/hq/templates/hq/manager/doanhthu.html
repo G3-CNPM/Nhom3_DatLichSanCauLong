@@ -5,8 +5,11 @@
 <link rel="stylesheet" href="{% static 'hq/css/doanhthu.css' %}">
 {% endblock css %}
 
+{% block title %}
+<title>Thống kê doanh thu</title>
+{% endblock title %}
 {% block main-content %}
-    <title>Thống kê doanh thu</title>
+    
 <body>
     <div class="navbar">
         <img alt="Logo" src="{% static 'hq/pics/Logo_Bad.png' %}" />
@@ -127,155 +130,157 @@
             </table>
         </div>
     </div>
-    <script>
-        const ctx = document.getElementById('salesChart').getContext('2d');
-        const salesChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['2024-12-19', '2024-12-18', '2024-12-17', '2024-12-16'],
-                datasets: [
-                    {
-                        label: 'Doanh thu (VND)',
-                        data: [1000000, 1200000, 1100000, 1300000],
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Lợi nhuận (VND)',
-                        data: [800000, 700000, 600000, 900000],
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
-                        borderWidth: 1
-                    },
-                    {
-                        label: 'Chi phí (VND)',
-                        data: [500000, 400000, 350000, 400000],
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
-                    }
-                ]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        function addRow(button) {
-            const row = button.parentNode.parentNode;
-            const cells = row.getElementsByTagName('td');
-            const date = cells[0].getElementsByTagName('input')[0].value;
-            const revenue = cells[1].getElementsByTagName('input')[0].value;
-            const profit = cells[2].getElementsByTagName('input')[0].value;
-            const cost = cells[3].getElementsByTagName('input')[0].value;
-
-            if (!date || !revenue || !profit || !cost) {
-                alert('Vui lòng nhập đầy đủ thông tin.');
-                return;
-            }
-
-            const detailedTable = document.getElementById('detailedTable').getElementsByTagName('tbody')[0];
-            const newRow = detailedTable.insertRow();
-            newRow.insertCell(0).innerText = date;
-            newRow.insertCell(1).innerText = revenue;
-            newRow.insertCell(2).innerText = profit;
-            newRow.insertCell(3).innerText = cost;
-            const actionCell = newRow.insertCell(4);
-            actionCell.className = 'action-buttons';
-            actionCell.innerHTML = '<button onclick="editRow(this)">Sửa</button><button onclick="deleteRow(this)">Xóa</button>';
-
-            cells[0].getElementsByTagName('input')[0].value = '';
-            cells[1].getElementsByTagName('input')[0].value = '';
-            cells[2].getElementsByTagName('input')[0].value = '';
-            cells[3].getElementsByTagName('input')[0].value = '';
-
-            updateChart();
-        }
-
-        function deleteRow(button) {
-            const row = button.parentNode.parentNode;
-            row.parentNode.removeChild(row);
-            updateChart();
-        }
-
-        function editRow(button) {
-            const row = button.parentNode.parentNode;
-            const cells = row.getElementsByTagName('td');
-            for (let i = 0; i < cells.length - 1; i++) {
-                const value = cells[i].innerText;
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.value = value;
-                cells[i].innerHTML = '';
-                cells[i].appendChild(input);
-            }
-            button.innerText = 'Lưu';
-            button.onclick = function() {
-                saveEditedRow(button);
-            };
-        }
-
-        function saveEditedRow(button) {
-            const row = button.parentNode.parentNode;
-            const cells = row.getElementsByTagName('td');
-            for (let i = 0; i < cells.length - 1; i++) {
-                const input = cells[i].getElementsByTagName('input')[0];
-                const value = input.value;
-                cells[i].innerText = value;
-            }
-            button.innerText = 'Sửa';
-            button.onclick = function() {
-                editRow(button);
-            };
-            updateChart();
-        }
-
-        function updateChart() {
-            const table = document.getElementById('detailedTable');
-            const rows = table.getElementsByTagName('tr');
-            const labels = [];
-            const revenueData = [];
-            const profitData = [];
-            const costData = [];
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                if (cells.length > 1 && rows[i].style.display !== 'none') {
-                    labels.push(cells[0].innerText);
-                    revenueData.push(parseInt(cells[1].innerText.replace(/,/g, '')));
-                    profitData.push(parseInt(cells[2].innerText.replace(/,/g, '')));
-                    costData.push(parseInt(cells[3].innerText.replace(/,/g, '')));
-                }
-            }
-            salesChart.data.labels = labels;
-            salesChart.data.datasets[0].data = revenueData;
-            salesChart.data.datasets[1].data = profitData;
-            salesChart.data.datasets[2].data = costData;
-            salesChart.update();
-        }
-
-        function applyFilter() {
-            const month = document.getElementById('monthFilter').value;
-            const year = document.getElementById('yearFilter').value;
-            const table = document.getElementById('detailedTable');
-            const rows = table.getElementsByTagName('tr');
-            for (let i = 1; i < rows.length; i++) {
-                const cells = rows[i].getElementsByTagName('td');
-                const date = cells[0].innerText;
-                const [yearPart, monthPart, dayPart] = date.split('-').map(Number);
-                if ((month && monthPart !== Number(month)) || (year && yearPart !== Number(year))) {
-                    rows[i].style.display = 'none';
-                } else {
-                    rows[i].style.display = '';
-                }
-            }
-            updateChart();
-        }
-    </script>
 </body>
-</html>
 {% endblock main-content %}
+
+{% block js %}
+<script>
+    const ctx = document.getElementById('salesChart').getContext('2d');
+    const salesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['2024-12-19', '2024-12-18', '2024-12-17', '2024-12-16'],
+            datasets: [
+                {
+                    label: 'Doanh thu (VND)',
+                    data: [1000000, 1200000, 1100000, 1300000],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Lợi nhuận (VND)',
+                    data: [800000, 700000, 600000, 900000],
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                },
+                {
+                    label: 'Chi phí (VND)',
+                    data: [500000, 400000, 350000, 400000],
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    function addRow(button) {
+        const row = button.parentNode.parentNode;
+        const cells = row.getElementsByTagName('td');
+        const date = cells[0].getElementsByTagName('input')[0].value;
+        const revenue = cells[1].getElementsByTagName('input')[0].value;
+        const profit = cells[2].getElementsByTagName('input')[0].value;
+        const cost = cells[3].getElementsByTagName('input')[0].value;
+
+        if (!date || !revenue || !profit || !cost) {
+            alert('Vui lòng nhập đầy đủ thông tin.');
+            return;
+        }
+
+        const detailedTable = document.getElementById('detailedTable').getElementsByTagName('tbody')[0];
+        const newRow = detailedTable.insertRow();
+        newRow.insertCell(0).innerText = date;
+        newRow.insertCell(1).innerText = revenue;
+        newRow.insertCell(2).innerText = profit;
+        newRow.insertCell(3).innerText = cost;
+        const actionCell = newRow.insertCell(4);
+        actionCell.className = 'action-buttons';
+        actionCell.innerHTML = '<button onclick="editRow(this)">Sửa</button><button onclick="deleteRow(this)">Xóa</button>';
+
+        cells[0].getElementsByTagName('input')[0].value = '';
+        cells[1].getElementsByTagName('input')[0].value = '';
+        cells[2].getElementsByTagName('input')[0].value = '';
+        cells[3].getElementsByTagName('input')[0].value = '';
+
+        updateChart();
+    }
+
+    function deleteRow(button) {
+        const row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+        updateChart();
+    }
+
+    function editRow(button) {
+        const row = button.parentNode.parentNode;
+        const cells = row.getElementsByTagName('td');
+        for (let i = 0; i < cells.length - 1; i++) {
+            const value = cells[i].innerText;
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = value;
+            cells[i].innerHTML = '';
+            cells[i].appendChild(input);
+        }
+        button.innerText = 'Lưu';
+        button.onclick = function() {
+            saveEditedRow(button);
+        };
+    }
+
+    function saveEditedRow(button) {
+        const row = button.parentNode.parentNode;
+        const cells = row.getElementsByTagName('td');
+        for (let i = 0; i < cells.length - 1; i++) {
+            const input = cells[i].getElementsByTagName('input')[0];
+            const value = input.value;
+            cells[i].innerText = value;
+        }
+        button.innerText = 'Sửa';
+        button.onclick = function() {
+            editRow(button);
+        };
+        updateChart();
+    }
+
+    function updateChart() {
+        const table = document.getElementById('detailedTable');
+        const rows = table.getElementsByTagName('tr');
+        const labels = [];
+        const revenueData = [];
+        const profitData = [];
+        const costData = [];
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            if (cells.length > 1 && rows[i].style.display !== 'none') {
+                labels.push(cells[0].innerText);
+                revenueData.push(parseInt(cells[1].innerText.replace(/,/g, '')));
+                profitData.push(parseInt(cells[2].innerText.replace(/,/g, '')));
+                costData.push(parseInt(cells[3].innerText.replace(/,/g, '')));
+            }
+        }
+        salesChart.data.labels = labels;
+        salesChart.data.datasets[0].data = revenueData;
+        salesChart.data.datasets[1].data = profitData;
+        salesChart.data.datasets[2].data = costData;
+        salesChart.update();
+    }
+
+    function applyFilter() {
+        const month = document.getElementById('monthFilter').value;
+        const year = document.getElementById('yearFilter').value;
+        const table = document.getElementById('detailedTable');
+        const rows = table.getElementsByTagName('tr');
+        for (let i = 1; i < rows.length; i++) {
+            const cells = rows[i].getElementsByTagName('td');
+            const date = cells[0].innerText;
+            const [yearPart, monthPart, dayPart] = date.split('-').map(Number);
+            if ((month && monthPart !== Number(month)) || (year && yearPart !== Number(year))) {
+                rows[i].style.display = 'none';
+            } else {
+                rows[i].style.display = '';
+            }
+        }
+        updateChart();
+    }
+</script>
+{% endblock js %}

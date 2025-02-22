@@ -30,42 +30,57 @@
 
 {% block main-content %}
 <div class="container">
-  <div class="register-form">
+  
+  {% if submitted %}
+      You Have Registed Successfully!!!
+      Login now!!!
+      <a href="{% url 'base:login' %}">Click here</a>
+  {% else %}
+<form method="POST" action="">
+  {% csrf_token %}
+  
+
+ <div class="register-form">
    <h2>
     Register
    </h2>
-   <div class="input-group">
-    <i class="fas fa-envelope">
-    </i>
-    <input placeholder="Email" type="email"/>
-   </div>
-   <div class="input-group">
-    <i class="fas fa-user">
-    </i>
-    <input placeholder="Username" type="text"/>
-   </div>
-   <div class="input-group">
-    <i class="fas fa-lock">
-    </i>
-    <input placeholder="Password" type="password"/>
-   </div>
-   <div class="input-group">
-    <i class="fas fa-lock">
-    </i>
-    <input placeholder="Confirm password" type="password"/>
-   </div>
-   <div class="links">
-    <p>
-     Đã có tài khoản?
-     <a href="{%url 'base:login'%}">
-      Đăng nhập ngay
-     </a>
-    </p>
-   </div>
-   <button class="submit-btn">
-    Submit
-   </button>
+   {{form.as_p}}
+    {% comment %} 
+    <div class="input-group">
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username" name="uname">
+      <i class='fas fa-user'></i>
+    </div>
+    <div class="input-group">
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email" name="email">
+      <i class='fas fa-envelope'></i>
+    </div>
+    <div class="input-group">
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="First Name" name="email">
+      <i class='fas fa-pen'></i>
+    </div>
+    <div class="input-group">
+      <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Last Name" name="email">
+      <i class='fas fa-pen'></i>
+    </div>
+    <div class="input-group">
+      <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="passwd">
+      <i class='fas fa-lock'></i>
+    </div>
+    <div class="input-group">
+      <input type="date" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Birthday" name="birth">
+      <i class='fas fa-calendar'></i>
+    </div>
+    <div class="input-group">
+      <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Telephone" name="telephn">
+      <i class='fas fa-phone'></i>
+    </div> {% endcomment %}
+    <button type="submit" class="btn btn-secondary">Submit</button>
+  
   </div>
+  </form> 
+  {% endif %}
+    
+  
 </div>
 {% endblock main-content %}
 
