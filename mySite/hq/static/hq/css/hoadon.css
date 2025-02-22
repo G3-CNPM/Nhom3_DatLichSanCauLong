@@ -28,7 +28,7 @@ body {
          border-bottom: 2px solid white;
      }
      .navbar .login-btn {
-         background-color: #f4a261;
+         background-color: orange;
          color: black;
          padding: 10px 20px;
          border: none;

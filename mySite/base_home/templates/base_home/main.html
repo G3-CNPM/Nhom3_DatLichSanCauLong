@@ -5,33 +5,20 @@
 <link rel="stylesheet" href="{% static 'base_home/css/main.css' %}">
 {% endblock base-css %}
 
-{% block base-js %}
-<script>
-    function findCourt() {
-      var area = document.getElementById("area").value;
-      var time = document.getElementById("time").value;
-      
-      if(area && time) {
-        alert("Bạn đã chọn: " + area + " vào khung giờ " + time);
-      } else {
-        alert("Vui lòng chọn sân và khung giờ.");
-      }
-    }
-  </script>
-{% endblock base-js %}
-
 {% block navbar %}
 <header class="header">
     <img src="{%static 'base_home/pics/Logo_Bad.png'%}" alt="Logo Feaver">
     <nav>
       <a class="active" href="{% url 'base:main' %}">Trang chủ</a>
+      <a href="{% url 'base:timsan' %}">Tìm sân</a>
       <a href="{% url 'base:sanpham' %}">Sản phẩm</a>
-      <a href="#">Đơn hàng</a>
-      <a href="#">Trang cá nhân</a>
+      <a href="{% url 'base:donhang' %}">Đơn hàng</a>
+      <a href="{% url 'base:voucher' %}">Kho Voucher</a>
+      <a href="{% url 'base:trangcanhan' %}">Trang cá nhân</a>
     </nav>
     <a href="{% url 'base:login' %}">
         <button class="login-btn">
-         ĐĂNG NHẬP
+         Đăng nhập
        </button>
       </a>
   </header>
@@ -40,44 +27,49 @@
 
 {% block main-content %}
     <main class="main-content">
-      <img alt="Badminton court" height="400" src="https://www.minhquansaigon.vn/uploads/products/2022/02/26/thi_cong_son_san_cau_long_8.jpg" width="800"/>
+      <img alt="Badminton court" height="400" src="https://png.pngtree.com/thumb_back/fh260/background/20220201/pngtree-competitive-badminton-players-on-court-with-shuttlecock-training-ball-shuttlecock-photo-image_3282479.jpg" width="800"/>
       <div class="text-overlay">
-        <p>Sân cầu lông số 1 Vũng Tàu</p>
+        <p class="text-2xl font-bold">
+          Sân cầu lông – Kết nối đam mê, thể hiện tài năng!
+         </p>
+         <p class="text-xl">
+          Sải bước mạnh mẽ, đánh cầu tự tin – Sân cầu lông là nơi vinh quang!
+         </p>
       </div>
     </main>
-<br>
-<br>
-<br>
-    <section class="search-section">
-      
-      <label for="area">Chọn sân:</label>
-      <select id="area">
-        <option value="">Chọn sân</option>
-        <option value="s1">Sân 1</option>
-        <option value="s2">Sân 2</option>
-        <option value="s3">Sân 3</option>
-        <option value="s4">Sân 4</option>
-        <option value="s5">Sân 5</option>
-        <option value="s6">Sân 6</option>
-      </select>
-      
-      <label for="time">Chọn khung giờ:</label>
-      <select id="time">
-        <option value="">Chọn khung giờ</option>
-        <option value="8-10">8:00 - 10:00</option>
-        <option value="10-12">10:00 - 12:00</option>
-        <option value="12-14">12:00 - 14:00</option>
-        <option value="14-16">14:00 - 16:00</option>
-        <option value="16-18">16:00 - 18:00</option>
-        <option value="18-20">18:00 - 20:00</option>
-      </select>
-      
-      <button onclick="findCourt()">Tìm Sân</button>
-    </section>
+  
+    <section class="info-section">
+      <div class="info-text">
+          <h2>Chào mừng đến với hệ thống sân bóng!</h2>
+          <p>Hệ thống sân bóng của chúng tôi cung cấp các sân đạt chuẩn, mặt sân PVC chất lượng cao, cùng với dịch vụ đặt sân tiện lợi.</p>
+        <p>Hãy chọn sân và khung giờ phù hợp để có trải nghiệm tốt nhất!</p>
+        <div class="info-images">
+          <div class="image-item left">
+              <img src="https://sieuthicaulong.vn/images/badminton-yard/1693256652_gallery_344721253_542979261121568_4872290165834334540_n.jpg">
+              <p>Sân trong nhà chất lượng cao - Được thiết kế với mặt sân PVC cao cấp, đảm bảo độ bám và độ nảy chuẩn, mang lại trải nghiệm chơi tốt nhất</p>
+          </div>
+          <div class="image-item right">
+              <img src="https://www.tba.mycourt.vn/upload/assets//user-storages/00003//thu-vien/anh1.jpg">
+              <p>CLB SV - Không gian giao lưu giữa các thành viên</p>
+          </div>
+          <div class="image-item left">
+              <img src="https://cdn.alongwalk.info/vn/wp-content/uploads/2023/06/27010702/image-he-thong-noi-quy-nha-thi-dau-cau-long-san-cau-long-moi-nhat-hien-nay-b592b949da09f184e8c28f27d68e38a1.jpg">
+              <p>Khu vực ghế ngồi thoải mái - Tạo không gian thư giãn cho người chơi và khán giả theo dõi trận đấu</p>
+          </div>
+          <div class="image-item right">
+              <img src="https://th.bing.com/th/id/R.1d20798f4011b299ebbf7ada84cd5988?rik=71uig%2bQiMaHP8w&riu=http%3a%2f%2fv1.ou.edu.vn%2fdacbiet%2fAnhHoatDong%2fSASsport%2f320165570_881428869655240_4918740039530473327_n.jpg&ehk=qkeNKXf1zFbleWFvsVETSBINBf3k3pLe%2bJZmdaBlNtQ%3d&risl=&pid=ImgRaw&r=0">
+              <p>Giải đấu đa dạng - Nơi tổ chức nhiều giải đấu hấp dẫn, phù hợp cho mọi trình độ từ nghiệp dư đến chuyên nghiệp</p>
+          </div>
+  </section>
+  <section class="address-section">
+    <h2>📍 Địa Chỉ Sân Cầu Lông</h2>
+    <p>🏠 Địa chỉ:70 Tô Ký , Quận 12, TP. Hồ Chí Minh</p>
+    <p>🕒 Giờ mở cửa: 6:00 - 22:00 (Hàng ngày)</p>
+</section>
 {% endblock main-content %}
 
 {% block footer %}
-<footer class="bg-light mt-4 p-3 text-center" style="display: flex; justify-content: space-between; align-items: center; padding: 2px;background-color: #d9d9d9;">
+<footer class= "footer"  style="display: flex; justify-content: space-between; align-items: center; padding: 2px;background-color: #d9d9d9;">
     <div style="text-align: center; flex: -1;">
         <p>@2024. Copyright Group_3_CNPM</p>
     </div>

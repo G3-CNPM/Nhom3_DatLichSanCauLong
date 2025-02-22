@@ -13,6 +13,9 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            height: 100vh; 
         }
         .header {
             background-image: linear-gradient(to right, rgb(160, 122, 122), rgb(28, 201, 161), #13a1b1);
@@ -28,7 +31,7 @@
             font-weight: bold;
         }
         .header .login-btn {
-            background-color: orange;
+            background-color: orange;  
             padding: 8px 16px;
             border: none;
             border-radius: 5px;
@@ -37,6 +40,7 @@
             font-weight: bold;
         }
         .container {
+            flex-grow: 1;
             display: flex;
         }
         .sidebar {
@@ -312,19 +316,39 @@
         }
 
         function addToCart() {
+            const title = document.getElementById('intro-title').innerText;
+            const price = parseInt(document.getElementById('intro-price').innerText.replace(/,/g, '')); // Chuyển đổi giá thành số
+        
+            // Lưu sản phẩm vào giỏ hàng
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const newItem = {
+                name: title,
+                price: price,
+                quantity: 1 // Hoặc có thể thêm một input để người dùng chọn số lượng
+            };
+        
+            // Kiểm tra xem sản phẩm đã có trong giỏ hàng chưa
+            const existingItemIndex = cartItems.findIndex(item => item.name === title);
+            if (existingItemIndex > -1) {
+                // Nếu có, tăng số lượng
+                cartItems[existingItemIndex].quantity += 1;
+            } else {
+                // Nếu không, thêm sản phẩm mới
+                cartItems.push(newItem);
+            }
+        
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
             alert('Sản phẩm đã được thêm vào giỏ hàng!');
-            showProductList(); 
         }
-
+                
         function showProductList() {
             document.getElementById('product-intro').style.display = 'none';
             document.querySelector('.product-grid').style.display = 'grid';
             document.getElementById('order-section').style.display = 'none';
             document.getElementById('profile-section').style.display = 'none';
         } 
+        
     </script>
 </body>
 </html>
 {% endblock main-content %}
-
-
