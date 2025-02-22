@@ -1,9 +1,11 @@
-<!DOCTYPE html>
+{% extends "base_home/base.html" %}
+{% load static %}
+
+{% block main-content %}
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đặt Sân Cầu Lông</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     
     <style>
@@ -31,7 +33,7 @@
         }
 
         #logo {
-            background-image: url("/static/khachhang/Logo_Bad.png");
+            background-image: url("/static/base_home/pics/Logo_Bad.png");
             background-size: 120px;
             background-repeat: no-repeat;
             width: 120px;
@@ -49,12 +51,13 @@
         }
 
         .header .login-btn {
-            background-color: #ffcc99;
-            padding: 10px 20px;
+            background-color: orange;
+            padding: 8px 16px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: medium;
+            font-weight: bold;
         }
 
         .header {
@@ -72,9 +75,7 @@
             font-weight: bold;
         }
 
-        .header a:hover {
-            text-decoration: underline;
-        }
+    
 
         .court-card {
             margin-bottom: 20px;
@@ -228,14 +229,15 @@
             </div>
             <div>
                 <nav>
-                    <a href="#" class="court-info me-3">Trang chủ</a>
-                    <a href="#" class="court-info me-3">Sản phẩm</a>
-                    <a href="#" class="court-info me-3">Đơn hàng</a>
-                    <a href="#" class="court-info me-3">Kho voucher</a>
-                    <a href="#" class="court-info me-3">Trang cá nhân</a>
+                    <a href="{% url 'base:main' %}" class="court-info me-3">Trang chủ</a>
+                    <a class="active" href="{% url 'base:timsan' %}" class="court-info me-3">Tìm sân</a>
+                    <a href="{% url 'base:sanpham' %}" class="court-info me-3">Sản phẩm</a>
+                    <a href="{% url 'base:donhang' %}" class="court-info me-3">Đơn hàng</a>
+                    <a href="{% url 'base:voucher' %}" class="court-info me-3">Kho voucher</a>
+                    <a href="{% url 'base:trangcanhan' %}" class="court-info me-3">Trang cá nhân</a>
                 </nav>
             </div>    
-            <button class="login-btn">ĐĂNG NHẬP</button>      
+            <button class="login-btn">Đăng nhập</button>      
         </div>
     </header>
     
@@ -412,7 +414,7 @@
                     <h5 class="text-center mt-4 court-info">THANH TOÁN TRỰC TUYẾN</h5>
                     <button class="btn btn-success w-100" onclick="showQRCode()">Thanh toán</button>
                     <div id="qr-code" class="mt-3 hidden">
-                        <img src="https://media.discordapp.net/attachments/1314229996604096582/1321886174511501322/IMG_20241226_122246.jpg?ex=6778186f&is=6776c6ef&hm=5b3f15bc175306b984693a5bb0948c6efcad7bbf232cd2a829fd46794e6c0c33&=&format=webp&width=697&height=662" alt="QR code" class="qr-code-img mx-auto">
+                        <img src="{% static "base_home/pics/QR.jpg" %}" alt="QR code" class="qr-code-img mx-auto">
                     </div>
                 </div>
             </aside>
@@ -503,3 +505,4 @@
     </footer>
 </body>
 </html>
+{% endblock main-content %}

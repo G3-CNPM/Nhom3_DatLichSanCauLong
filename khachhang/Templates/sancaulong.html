@@ -1,0 +1,131 @@
+gửi cái gốc để lúc cần còn ấy
+Xem sửa j nx k
+cần thì tui sửa luôn cho
+đi làm đi
+Ok
+Qua làm tâm huyết lắm r đok
+đẹp mà
+Ok bạn
+Tối tui vô sau
+ok b
+về r à
+đr
+thử check lại xem
+{% extends "hq/admin_user/base_admin.html" %}
+{% load static %}
+
+{% block title %}
+    <title>Quản lý sân cầu lông</title>
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'hq/css/sancaulong.css' %}">
+{% endblock css %}
+{% block main-content %}
+  <body>
+    <div class="navbar">
+      <img src="{%static 'hq/pics/Logo_Bad.png'%}" alt="Logo Feaver">
+      <div class="nav-links">
+        <a href="{% url 'admin_user:taikhoan' %}">Quản lý tài khoản</a>
+        <a class="active" href="{% url 'admin_user:sancaulong' %}">Quản lý sân cầu lông</a>
+        <a href="{% url 'admin_user:lichsu' %}">Lịch sử thay đổi thông tin</a>
+        <a href="{% url 'admin_user:baocao' %}">Báo cáo</a>
+      </div>
+      <button class="login-btn">Đăng nhập</button>
+    </div>
+
+    <div class="container">
+      <table class="table-container">
+        <thead>
+          <tr>
+            <th colspan="4">DANH SÁCH CÁC SÂN</th>
+          </tr>
+          <tr>
+            <th>Tên sân</th>
+            <th>Tình trạng</th>
+            <th>Tình trạng bảo dưỡng</th>
+            <th>Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sân 1</td>
+            <td class="status" contenteditable="false">Sử dụng được</td>
+            <td class="maintenance-status" contenteditable="false">Tốt</td>
+            <td><button class="save-btn" onclick="saveChanges(this)" disabled>Lưu</button></td>
+          </tr>
+          <tr>
+            <td>Sân 2</td>
+            <td class="status" contenteditable="false">Sử dụng được</td>
+            <td class="maintenance-status" contenteditable="false">Tốt</td>
+            <td><button class="save-btn" onclick="saveChanges(this)" disabled>Lưu</button></td>
+          </tr>
+          <tr>
+            <td>Sân 3</td>
+            <td class="status" contenteditable="false">Sử dụng được</td>
+            <td class="maintenance-status" contenteditable="false">Tốt</td>
+            <td><button class="save-btn" onclick="saveChanges(this)" disabled>Lưu</button></td>
+          </tr>
+          <tr>
+            <td>Sân 4</td>
+            <td class="status" contenteditable="false">Sử dụng được</td>
+            <td class="maintenance-status" contenteditable="false">Tốt</td>
+            <td><button class="save-btn" onclick="saveChanges(this)" disabled>Lưu</button></td>
+          </tr>
+          <tr>
+            <td>Sân 5</td>
+            <td class="status" contenteditable="false">Sử dụng được</td>
+            <td class="maintenance-status" contenteditable="false">Tốt</td>
+            <td><button class="save-btn" onclick="saveChanges(this)" disabled>Lưu</button></td>
+          </tr>
+          <tr>
+            <td>Sân 6</td>
+            <td class="status" contenteditable="false">Sử dụng được</td>
+            <td class="maintenance-status" contenteditable="false">Tốt</td>
+<td><button class="save-btn" onclick="saveChanges(this)" disabled>Lưu</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="change-info" onclick="editInfo()">[Chỉnh sửa thông tin]</div>
+    </div>
+  </body>
+{% endblock main-content %}
+
+{% block js %}
+<script>
+      function editInfo() {
+        var statusCells = document.querySelectorAll('.status');
+        var maintenanceCells = document.querySelectorAll('.maintenance-status');
+        var saveButtons = document.querySelectorAll('.save-btn');
+        
+        statusCells.forEach(function(cell) {
+          cell.contentEditable = cell.contentEditable === "true" ? "false" : "true";
+        });
+        
+        maintenanceCells.forEach(function(cell) {
+          cell.contentEditable = cell.contentEditable === "true" ? "false" : "true";
+        });
+
+        saveButtons.forEach(function(button) {
+          button.disabled = !button.disabled;
+        });
+      }
+
+      function saveChanges(button) {
+        var row = button.parentElement.parentElement;
+        
+        var status = row.querySelector('.status').textContent;
+        var maintenanceStatus = row.querySelector('.maintenance-status').textContent;
+
+        console.log('Lưu thông tin sân:', row.cells[0].textContent);
+        console.log('Tình trạng:', status);
+        console.log('Tình trạng bảo dưỡng:', maintenanceStatus);
+
+        row.querySelector('.status').contentEditable = false;
+        row.querySelector('.maintenance-status').contentEditable = false;
+        
+        button.disabled = true;
+        button.textContent = 'Đã lưu';
+      }
+    </script>
+{% endblock js %}
