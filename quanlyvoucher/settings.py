@@ -75,12 +75,9 @@ WSGI_APPLICATION = 'quanlyvoucher.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME':  'mysite',
-        'USER': 'root',
-        'PASSWORD': '10022005',
-        'HOSt': 'localhost',
+   'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
 
